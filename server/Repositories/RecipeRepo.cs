@@ -21,4 +21,15 @@ public class RecipeRepo(IDbConnection db)
   internal void DeleteRecipe(int recipeId)
   { db.Query("DELETE FROM recipes WHERE id = @recipeId", new { recipeId }); }
 
+  internal Recipe UpdateRecipe(Recipe recipeData)
+  {
+    string sql = @"UPDATE recipes SET
+      title = @Title,
+      instructions = @Instructions,
+      category = @Category,
+      img = @Img
+      WHERE id = @Id;";
+    return db.QueryFirstOrDefault(sql, recipeData);
+  }
+
 }
