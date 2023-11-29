@@ -6,7 +6,7 @@ public class RecipeRepo(IDbConnection db)
   { return db.Query<Recipe>("SELECT * FROM recipes;").ToList(); }
 
   internal Recipe GetRecipeById(int recipeId)
-  { return db.QueryFirstOrDefault("SELECT * FROM recipes WHERE id = @recipeId;", new { recipeId }); }
+  { return db.QueryFirstOrDefault<Recipe>("SELECT * FROM recipes WHERE id = @recipeId;", new { recipeId }); }
 
   internal Recipe CreateRecipe(Recipe recipeData)
   {
@@ -15,7 +15,7 @@ public class RecipeRepo(IDbConnection db)
     VALUES (@Title,@Instructions,@Img,@Category,@CreatorId);
 
     SELECT * FROM recipes WHERE id = LAST_INSERT_ID();";
-    return db.QueryFirstOrDefault(sql, recipeData);
+    return db.QueryFirstOrDefault<Recipe>(sql, recipeData);
   }
 
   internal void DeleteRecipe(int recipeId)
@@ -29,7 +29,7 @@ public class RecipeRepo(IDbConnection db)
       category = @Category,
       img = @Img
       WHERE id = @Id;";
-    return db.QueryFirstOrDefault(sql, recipeData);
+    return db.QueryFirstOrDefault<Recipe>(sql, recipeData);
   }
 
 }

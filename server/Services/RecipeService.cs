@@ -26,7 +26,9 @@ public class RecipeService(RecipeRepo recipeRepo)
     recipe.Category = recipeData.Category ?? recipe.Category;
     recipe.Img = recipeData.Img ?? recipe.Img;
 
-    return recipeRepo.UpdateRecipe(recipe);
+    recipeRepo.UpdateRecipe(recipe);
+
+    return recipe;
   }
 
 
