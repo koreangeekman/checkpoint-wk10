@@ -1,24 +1,17 @@
 namespace wk10.Repositories;
 
-public class AccountsRepository
+public class AccountsRepository(IDbConnection db)
 {
-  private readonly IDbConnection _db;
-
-  public AccountsRepository(IDbConnection db)
-  {
-    _db = db;
-  }
-
   internal Account GetByEmail(string userEmail)
   {
     string sql = "SELECT * FROM accounts WHERE email = @userEmail";
-    return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
+    return db.QueryFirstOrDefault<Account>(sql, new { userEmail });
   }
 
   internal Account GetById(string id)
   {
     string sql = "SELECT * FROM accounts WHERE id = @id";
-    return _db.QueryFirstOrDefault<Account>(sql, new { id });
+    return db.QueryFirstOrDefault<Account>(sql, new { id });
   }
 
   internal Account Create(Account newAccount)
@@ -28,7 +21,7 @@ public class AccountsRepository
               (name, picture, email, id)
             VALUES
               (@Name, @Picture, @Email, @Id)";
-    _db.Execute(sql, newAccount);
+    db.Execute(sql, newAccount);
     return newAccount;
   }
 
@@ -40,7 +33,7 @@ public class AccountsRepository
               name = @Name,
               picture = @Picture
             WHERE id = @Id;";
-    _db.Execute(sql, update);
+    db.Execute(sql, update);
     return update;
   }
 }
