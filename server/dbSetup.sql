@@ -19,3 +19,12 @@ CREATE TABLE
         img VARCHAR(360) NOT NULL,
         creatorId VARCHAR(255) NOT NULL
     ) default charset utf8 COMMENT '';
+
+CREATE TABLE
+    IF NOT EXISTS ingredients(
+        id INT UNSIGNED UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        name CHAR(50) NOT NULL,
+        quantity CHAR(50) NOT NULL,
+        creatorId VARCHAR(255) NOT NULL,
+        recipeId INT NOT NULL
+    ) default charset utf8 COMMENT '';
