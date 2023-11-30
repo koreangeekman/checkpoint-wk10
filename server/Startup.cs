@@ -38,7 +38,7 @@ public class Startup
     services.AddScoped<RecipeService>();
 
     services.AddScoped<IngredientsRepo>();
-    // services.AddScoped<IngredientsService>();
+    services.AddScoped<IngredientsService>();
 
     // services.AddScoped<FavoritesRepo>();
     // services.AddScoped<FavoritesService>();

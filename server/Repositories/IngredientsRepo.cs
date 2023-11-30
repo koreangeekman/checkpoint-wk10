@@ -2,6 +2,12 @@ namespace wk10.Repositories;
 
 public class IngredientsRepo(IDbConnection db)
 {
+  internal Ingredient GetIngredientById(int ingredientId)
+  {
+    string sql = "SELECT * FROM ingredients WHERE id = @ingredientId;";
+    return db.QueryFirstOrDefault<Ingredient>(sql, new { ingredientId });
+  }
+
   internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)
   {
     string sql = "SELECT * FROM ingredients WHERE recipeId = @RecipeId;";
