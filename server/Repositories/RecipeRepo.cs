@@ -2,11 +2,35 @@ namespace wk10.Repositories;
 
 public class RecipeRepo(IDbConnection db)
 {
+
+  private Recipe PopulateProfile(Recipe recipe, Profile profile)
+  {
+    recipe.Creator = profile;
+    return recipe;
+  }
+
   internal List<Recipe> GetRecipes()
-  { return db.Query<Recipe>("SELECT * FROM recipes;").ToList(); }
+  {
+    string sql = @"
+        SELECT 
+        r.*,
+        acc.*
+        FROM recipes r
+        JOIN accounts acc ON acc.id = r.creatorId;";
+    return db.Query<Recipe, Profile, Recipe>(sql, PopulateProfile).ToList();
+  }
 
   internal Recipe GetRecipeById(int recipeId)
-  { return db.QueryFirstOrDefault<Recipe>("SELECT * FROM recipes WHERE id = @recipeId;", new { recipeId }); }
+  {
+    string sql = @"
+        SELECT 
+        r.*,
+        acc.*
+        FROM recipes r
+        JOIN accounts acc ON acc.id = r.creatorId
+        WHERE r.id = @recipeId;";
+    return db.Query<Recipe, Profile, Recipe>(sql, PopulateProfile, new { recipeId }).FirstOrDefault();
+  }
 
   internal Recipe CreateRecipe(Recipe recipeData)
   {
