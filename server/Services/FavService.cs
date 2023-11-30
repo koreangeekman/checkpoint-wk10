@@ -2,7 +2,7 @@ namespace wk10.Services;
 
 public class FavService(FavRepo favRepo)
 {
-  internal List<Favorite> GetFavoritesByAccountId(string accountId)
+  internal List<FavRecipe> GetFavoritesByAccountId(string accountId)
   { return favRepo.GetFavByAccountId(accountId); }
 
   internal Favorite CreateFavorite(Favorite favData)

@@ -2,8 +2,23 @@ namespace wk10.Repositories;
 
 public class FavRepo(IDbConnection db)
 {
-  internal List<Favorite> GetFavByAccountId(string accountId)
-  { return db.Query<Favorite>("SELECT * FROM favorites WHERE accountId = @AccountId;", new { accountId }).ToList(); }
+  private FavRecipe ReformatWithFavId(Favorite fav, FavRecipe favR)
+  {
+    favR.FavoriteId = fav.Id;
+    return favR;
+  }
+
+  internal List<FavRecipe> GetFavByAccountId(string accountId)
+  {
+    string sql = @"
+      SELECT 
+      fav.*,
+      r.* 
+      FROM favorites fav 
+      JOIN recipes r ON fav.recipeId = r.id
+      WHERE fav.accountId = @AccountId;";
+    return db.Query<Favorite, FavRecipe, FavRecipe>(sql, ReformatWithFavId, new { accountId }).ToList();
+  }
 
   internal Favorite CreateFavorite(Favorite favData)
   {
