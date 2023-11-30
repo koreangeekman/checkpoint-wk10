@@ -1,14 +1,13 @@
-using Microsoft.AspNetCore.Http;
-
 namespace wk10.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class FavoritesController(Auth0Provider auth0Provider, FavService favService) : ControllerBase
 {
+
   [Authorize]
   [HttpPost]
-  internal async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favData)
+  public async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favData)
   {
     try
     {
@@ -21,7 +20,7 @@ public class FavoritesController(Auth0Provider auth0Provider, FavService favServ
 
   [Authorize]
   [HttpDelete("{favId}")]
-  internal async Task<ActionResult<Favorite>> DeleteFavorite(int favId)
+  public async Task<ActionResult<Favorite>> DeleteFavorite(int favId)
   {
     try
     {
@@ -30,6 +29,5 @@ public class FavoritesController(Auth0Provider auth0Provider, FavService favServ
     }
     catch (Exception e) { return BadRequest(e.Message); }
   }
-
 
 }

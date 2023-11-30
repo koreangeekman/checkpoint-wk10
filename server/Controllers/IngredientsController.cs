@@ -29,5 +29,4 @@ public class IngredientsController(IngredientsService ingredientsService, Auth0P
     catch (Exception e) { return BadRequest(e.Message); }
   }
 
-
 }
