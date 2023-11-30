@@ -17,8 +17,8 @@ public class IngredientsRepo(IDbConnection db)
   internal Ingredient AddIngredient(Ingredient ingredientData)
   {
     string sql = @"INSERT INTO 
-    ingredients (name, quantity,recipeId)
-    VALUES (@Name,@Quantity,@RecipeId);
+    ingredients (name, quantity,recipeId,creatorId)
+    VALUES (@Name,@Quantity,@RecipeId,@CreatorId);
     
     SELECT * FROM ingredients WHERE id = LAST_INSERT_ID();";
     return db.QueryFirstOrDefault<Ingredient>(sql, ingredientData);

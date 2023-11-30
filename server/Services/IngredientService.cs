@@ -1,6 +1,6 @@
 namespace wk10.Services;
 
-public class IngredientsService(IngredientsRepo ingredientsRepo)
+public class IngredientsService(IngredientsRepo ingredientsRepo, RecipeService recipeService)
 {
   internal Ingredient GetIngredientById(int ingredientId)
   {
@@ -12,13 +12,18 @@ public class IngredientsService(IngredientsRepo ingredientsRepo)
   internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)
   { return ingredientsRepo.GetIngredientsByRecipeId(recipeId); }
 
-  internal Ingredient AddIngredient(Ingredient ingredientData)
-  { return ingredientsRepo.AddIngredient(ingredientData); }
+  internal Ingredient AddIngredient(string creatorId, Ingredient ingredientData)
+  {
+    Recipe recipe = recipeService.GetRecipeById(ingredientData.RecipeId);
+    if (recipe.CreatorId != creatorId) { throw new Exception("Forbidden action - Not your recipe to modify"); }
+    ingredientData.CreatorId = creatorId;
+    return ingredientsRepo.AddIngredient(ingredientData);
+  }
 
   internal string RemoveIngredient(string creatorId, int ingredientId)
   {
     Ingredient ingredient = GetIngredientById(ingredientId);
-    if (ingredient.CreatorId != creatorId) { throw new Exception("Forbidden action - Not your data"); }
+    if (ingredient.CreatorId != creatorId) { throw new Exception("Forbidden action - Not your ingredient to remove"); }
     ingredientsRepo.RemoveIngredient(ingredientId);
     return "Ingredient removed from recipe";
   }

@@ -4,6 +4,7 @@ namespace wk10.Controllers;
 [Route("api/[controller]")]
 public class RecipesController(
     RecipeService recipeService,
+    IngredientsService ingredientsService,
     Auth0Provider auth0Provider
   ) : ControllerBase
 {
@@ -18,6 +19,13 @@ public class RecipesController(
   public ActionResult<Recipe> GetRecipeById(int recipeId)
   {
     try { return Ok(recipeService.GetRecipeById(recipeId)); }
+    catch (Exception e) { return BadRequest(e.Message); }
+  }
+
+  [HttpGet("{recipeId}/ingredients")]
+  public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
+  {
+    try { return Ok(ingredientsService.GetIngredientsByRecipeId(recipeId)); }
     catch (Exception e) { return BadRequest(e.Message); }
   }
 
