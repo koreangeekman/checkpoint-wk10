@@ -24,6 +24,7 @@ public class RecipeService(RecipeRepo recipeRepo)
     Recipe recipe = GetRecipeById(recipeId);
 
     recipe.Title = recipeData.Title ?? recipe.Title;
+    recipe.Subtitle = recipeData.Subtitle ?? recipe.Subtitle;
     recipe.Instructions = recipeData.Instructions ?? recipe.Instructions;
     recipe.Category = recipeData.Category ?? recipe.Category;
     recipe.Img = recipeData.Img ?? recipe.Img;

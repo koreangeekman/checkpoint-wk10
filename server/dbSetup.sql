@@ -14,6 +14,7 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title CHAR(50) NOT NULL,
+        subtitle CHAR(50),
         instructions VARCHAR(2000) NOT NULL,
         category CHAR(50) NOT NULL,
         img VARCHAR(360) NOT NULL,

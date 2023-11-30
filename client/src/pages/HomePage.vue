@@ -6,21 +6,17 @@
       </div>
     </section>
   </div>
-  <ModalComponent :modalId="'newRecipe'">
+  <ModalComponent :modalId="'newRecipe'" :modalSize="'modal-lg'">
     <template #modalTitle>New Recipe</template>
     <template #modalBody>
-      <form @submit.prevent="createRecipe()" class="">
-        <div class="mb-3">
-          <label for="title">Title</label>
-          <input v-model="recipeForm.title" type="text" class="form-control" name="title" maxlength="50" required
-            placeholder="Recipe name...">
-        </div>
-        <div class="mb-3">
-          <label for="instructions">Instructions</label>
-          <textarea v-model="recipeForm.instructions" class="form-textarea" name="instructions" maxlength="1000" required
-            placeholder="Instructions..."></textarea>
-        </div>
-      </form>
+      <RecipeForm />
+    </template>
+    <!-- <template #modalFooter>submit button</template> -->
+  </ModalComponent>
+  <ModalComponent :modalId="'editRecipe'" :modalSize="'modal-lg'">
+    <template #modalTitle>Edit Recipe</template>
+    <template #modalBody>
+      <RecipeForm :edit="true" />
     </template>
     <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
@@ -30,15 +26,14 @@
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import RecipeCard from "../components/RecipeCard.vue";
+import RecipeForm from "../components/RecipeForm.vue";
 import ModalComponent from "../components/ModalComponent.vue";
 import { recipeService } from "../services/RecipeService";
 
 export default {
   setup() {
-
-    const recipeForm = ref({});
 
     async function _getRecipes() {
       try { recipeService.getRecipes(); }
@@ -50,23 +45,17 @@ export default {
     })
 
     return {
-      recipeForm,
-
       recipes: computed(() => AppState.recipes),
-
-      async createRecipe() {
-        try {
-          await recipeService.createRecipe(recipeForm.value);
-          Modal.getOrCreateInstance('#newRecipe').hide();
-          recipeForm = {};
-        }
-        catch (error) { Pop.error(error); }
-      },
 
     };
   },
-  components: { RecipeCard, ModalComponent }
+  components: { RecipeCard, RecipeForm, ModalComponent }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.text-grey {
+  color: #808080;
+  font-size: smaller;
+}
+</style>

@@ -35,8 +35,8 @@ public class RecipeRepo(IDbConnection db)
   internal Recipe CreateRecipe(Recipe recipeData)
   {
     string sql = @"INSERT INTO 
-    recipes (title,instructions,img,category,creatorId)
-    VALUES (@Title,@Instructions,@Img,@Category,@CreatorId);
+    recipes (title,subtitle,instructions,img,category,creatorId)
+    VALUES (@Title,@Subtitle,@Instructions,@Img,@Category,@CreatorId);
 
     SELECT * FROM recipes WHERE id = LAST_INSERT_ID();";
     return db.QueryFirstOrDefault<Recipe>(sql, recipeData);
@@ -49,6 +49,7 @@ public class RecipeRepo(IDbConnection db)
   {
     string sql = @"UPDATE recipes SET
       title = @Title,
+      subtitle = @Subtitle,
       instructions = @Instructions,
       category = @Category,
       img = @Img
