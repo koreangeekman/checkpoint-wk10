@@ -28,3 +28,10 @@ CREATE TABLE
         creatorId VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL
     ) default charset utf8 COMMENT '';
+
+CREATE TABLE
+    IF NOT EXISTS favorites(
+        id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        recipeId INT NOT NULL,
+        creatorId VARCHAR(255) NOT NULL
+    ) default charset utf8 COMMENT '';

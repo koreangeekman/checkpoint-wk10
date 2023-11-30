@@ -2,7 +2,11 @@ namespace wk10.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AccountController(AccountService accountService, Auth0Provider auth0Provider) : ControllerBase
+public class AccountController(
+  AccountService accountService,
+  Auth0Provider auth0Provider,
+  FavService favService
+  ) : ControllerBase
 {
   [HttpGet]
   [Authorize]
@@ -18,4 +22,17 @@ public class AccountController(AccountService accountService, Auth0Provider auth
       return BadRequest(e.Message);
     }
   }
+
+  [HttpGet("favorites")]
+  [Authorize]
+  public async Task<ActionResult<Account>> GetFavoritesByAccountId()
+  {
+    try
+    {
+      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(favService.GetFavoritesByAccountId(userInfo.Id));
+    }
+    catch (Exception e) { return BadRequest(e.Message); }
+  }
+
 }
