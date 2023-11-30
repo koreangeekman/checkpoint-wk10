@@ -17,7 +17,8 @@ CREATE TABLE
         instructions VARCHAR(2000) NOT NULL,
         category CHAR(50) NOT NULL,
         img VARCHAR(360) NOT NULL,
-        creatorId VARCHAR(255) NOT NULL
+        creatorId VARCHAR(255) NOT NULL,
+        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
@@ -26,12 +27,15 @@ CREATE TABLE
         name CHAR(50) NOT NULL,
         quantity CHAR(50) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
-        recipeId INT NOT NULL
+        recipeId INT NOT NULL,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
     IF NOT EXISTS favorites(
         id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
         recipeId INT NOT NULL,
-        accountId VARCHAR(255) NOT NULL
+        accountId VARCHAR(255) NOT NULL,
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
