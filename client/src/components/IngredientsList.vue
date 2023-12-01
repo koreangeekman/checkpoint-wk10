@@ -8,17 +8,18 @@
           <p class="mb-0 mx-2">●</p>
           <p class="mb-0">{{ ingredient.name }}</p>
         </span>
-        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" @click="removeIngredient(ingredient.id)"></i>
+        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" v-if="creatorId == account.id"
+          @click="removeIngredient(ingredient.id)"></i>
       </div>
     </div>
     <hr class="m-0">
-    <div class="d-flex align-items-center p-2">
+    <div class="d-flex align-items-center p-2" v-if="creatorId == account.id">
       <input v-model="ingredientForm.quantity" type="text" name="quantity" class="form-control w-50" maxlength="24"
         required placeholder="Amount..">
       <p class="mb-0 mx-1">●</p>
       <input v-model="ingredientForm.name" type="text" name="name" class="form-control" maxlength="32" required
         placeholder="Ingredient..">
-      <i class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" @click="addIngredient()" type="button"
+      <i class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" tabindex="0" @click="addIngredient()" type="button"
         :class="(ingredientForm.name == '' || ingredientForm.name == null || ingredientForm.quantity == '' || ingredientForm.quantity == null) ? 'disabled' : ''"></i>
     </div>
   </div>
@@ -33,7 +34,10 @@ import { ingredientService } from "../services/IngredientService";
 import { logger } from "../utils/Logger";
 
 export default {
-  props: { recipeId: { type: String } },
+  props: {
+    recipeId: { type: String },
+    creatorId: { type: String }
+  },
 
   setup(props) {
     const ingredientForm = ref({});
@@ -41,6 +45,7 @@ export default {
     return {
       ingredientForm,
       ingredients: computed(() => AppState.ingredients),
+      account: computed(() => AppState.account),
 
       async addIngredient() {
         try {
@@ -56,7 +61,7 @@ export default {
       },
       async removeIngredient(ingredientId) {
         try {
-          const yes = Pop.confirm('Delete this ingredient?');
+          const yes = await Pop.confirm('Delete this ingredient?');
           if (!yes) { return }
           await ingredientService.removeIngredient(ingredientId);
         }

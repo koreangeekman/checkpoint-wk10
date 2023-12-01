@@ -35,6 +35,7 @@ class RecipeService {
     const res = await api.delete('api/recipes/' + recipeId);
     AppState.recipes = AppState.recipes.filter(r => r.id != recipeId);
     logger.log(`Recipe with ID ${recipeId} has been deleted`)
+    AppState.activeRecipe = {};
   }
 
   async updateRecipe(recipeData) {
