@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <section class="row justify-content-center">
-      <div class="col-12 d-flex justify-content-center position-relative">
+      <div class="col-12 d-flex justify-content-center position-relative" v-if="account?.id">
         <span class="d-flex justify-content-between position-absolute filter shadow rounded px-2 py-1">
           <button class="mx-2 btn selectable" @click="sortBy('all')">Show All</button>
           <button class="mx-2 btn selectable" @click="sortBy('mine')">My Recipes</button>
@@ -13,6 +13,7 @@
       </div>
     </section>
   </div>
+
   <ModalComponent :modalId="'newRecipe'" :modalSize="'modal-lg'" :showHeader="true">
     <template #modalTitle>New Recipe</template>
     <template #modalBody>
@@ -20,6 +21,7 @@
     </template>
     <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
+
   <ModalComponent :modalId="'editRecipe'" :modalSize="'modal-lg'" :showHeader="true">
     <template #modalTitle>Edit Recipe</template>
     <template #modalBody>
@@ -27,6 +29,7 @@
     </template>
     <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
+
   <ModalComponent :modalId="'recipeDetails'" :modalSize="'modal-xl'">
     <!-- <template #modalTitle></template> -->
     <template #modalBody>
@@ -45,29 +48,50 @@ import RecipeCard from "../components/RecipeCard.vue";
 import RecipeForm from "../components/RecipeForm.vue";
 import ModalComponent from "../components/ModalComponent.vue";
 import { recipeService } from "../services/RecipeService";
+import { accountService } from "../services/AccountService";
 
 export default {
   setup() {
 
-    const filterBy = ref('');
-    const filtered = ref([]);
-    // watchEffect(() => {
-    //   if (filterBy = 'favs') {
-    //     // filtered.value = AppState.recipes.filter()
-    //   }
-    // })
-
-    async function _getRecipes() {
-      try { recipeService.getRecipes(); }
-      catch (error) { Pop.error(error); }
-    }
+    const recipes = ref([]);
+    watchEffect(() => {
+      if (AppState.account.id) {
+        _getFavRecipes();
+      }
+    })
 
     onMounted(() => {
       _getRecipes();
     })
 
+    async function _getRecipes() {
+      try {
+        await recipeService.getRecipes();
+        recipes.value = [...AppState.recipes];
+      }
+      catch (error) { Pop.error(error); }
+    }
+
+    async function _getFavRecipes() {
+      try {
+        await accountService.getFavsByAccountId();
+      }
+      catch (error) { Pop.error(error); }
+    }
+
     return {
-      recipes: computed(() => AppState.recipes),
+      recipes,
+      account: computed(() => AppState.account),
+
+      sortBy(filterBy) {
+        if (filterBy == 'favs') {
+          recipes.value = AppState.favRecipes;
+        } else if (filterBy == 'mine') {
+          recipes.value = [...AppState.recipes].filter(r => r.creatorId == this.account.id);
+        } else {
+          recipes.value = AppState.recipes;
+        }
+      }
 
     };
   },

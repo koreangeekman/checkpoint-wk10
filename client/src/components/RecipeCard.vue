@@ -13,11 +13,11 @@
 
 <script>
 import Pop from "../utils/Pop";
+import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
 import { Recipe } from "../models/Recipe";
 import { recipeService } from "../services/RecipeService";
-import { Modal } from "bootstrap";
 
 export default {
   props: { recipe: { type: Recipe } },
