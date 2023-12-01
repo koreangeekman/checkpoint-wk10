@@ -7,7 +7,7 @@ public class FavoritesController(Auth0Provider auth0Provider, FavService favServ
 
   [Authorize]
   [HttpPost]
-  public async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favData)
+  public async Task<ActionResult<FavRecipe>> CreateFavorite([FromBody] Favorite favData)
   {
     try
     {

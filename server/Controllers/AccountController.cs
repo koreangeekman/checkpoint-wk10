@@ -25,7 +25,7 @@ public class AccountController(
 
   [HttpGet("favorites")]
   [Authorize]
-  public async Task<ActionResult<Account>> GetFavoritesByAccountId()
+  public async Task<ActionResult<FavRecipe>> GetFavoritesByAccountId()
   {
     try
     {

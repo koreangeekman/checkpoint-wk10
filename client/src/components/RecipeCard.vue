@@ -16,9 +16,9 @@
 
 <script>
 import Pop from "../utils/Pop";
+import { computed } from 'vue';
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
-import { computed } from 'vue';
 import { Recipe } from "../models/Recipe";
 import Favorites from "./Favorites.vue";
 import { recipeService } from "../services/RecipeService";

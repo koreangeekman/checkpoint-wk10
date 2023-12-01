@@ -1,5 +1,5 @@
 <template>
-  <div class="favorites fs-2" @click.stop="toggleFav(recipeId)">
+  <div class="favorites fs-2" @click.stop="toggleFav()">
     <i v-if="favorite" class="text-warning mdi mdi-star"></i>
     <i v-else class="text-secondary mdi mdi-star-outline"></i>
 
@@ -21,20 +21,20 @@ export default {
     return {
 
       favorite: computed(() => {
-        const exists = AppState.favRecipes.find(r => r.id = props.recipeId);
-        logger.log('exists?', exists, props.routineId);
+        const exists = AppState.favRecipes.find(r => r.id == props.recipeId);
+        // logger.log('exists?', exists, props.routineId);
         if (exists) {
-          return true;
+          return exists.favoriteId;
         }
         return false;
       }),
 
-      async toggleFav(recipeId) {
+      async toggleFav() {
         try {
           if (this.favorite) {
-            await favService.removeFavorite(recipeId);
+            await favService.removeFavorite(this.favorite);
           } else {
-            await favService.addFavorite(recipeId);
+            await favService.addFavorite(props.recipeId);
           }
         }
         catch (error) { Pop.error(error); }

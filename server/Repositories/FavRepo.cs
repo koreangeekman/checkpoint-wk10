@@ -20,14 +20,19 @@ public class FavRepo(IDbConnection db)
     return db.Query<Favorite, FavRecipe, FavRecipe>(sql, ReformatWithFavId, new { accountId }).ToList();
   }
 
-  internal Favorite CreateFavorite(Favorite favData)
+  internal FavRecipe CreateFavorite(Favorite favData)
   {
     string sql = @"INSERT INTO 
       favorites(recipeId,accountId)
       VALUES (@RecipeId,@AccountId);
       
-      SELECT * FROM favorites WHERE id = LAST_INSERT_ID();";
-    return db.QueryFirstOrDefault<Favorite>(sql, favData);
+      SELECT 
+      fav.*,
+      r.* 
+      FROM favorites fav 
+      JOIN recipes r ON fav.recipeId = r.id
+      WHERE fav.id = LAST_INSERT_ID();";
+    return db.Query<Favorite, FavRecipe, FavRecipe>(sql, ReformatWithFavId, favData).FirstOrDefault();
   }
 
   internal void DeleteFavorite(int favId)
