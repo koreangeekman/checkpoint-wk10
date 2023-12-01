@@ -35,4 +35,16 @@ public class AccountController(
     catch (Exception e) { return BadRequest(e.Message); }
   }
 
+  [Authorize]
+  [HttpPut]
+  public async Task<ActionResult<Profile>> EditProfile([FromBody] Account editData)
+  {
+    try
+    {
+      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(accountService.Edit(editData, userInfo.Email));
+    }
+    catch (Exception e) { return BadRequest(e.Message); }
+  }
+
 }

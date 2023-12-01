@@ -25,7 +25,7 @@ public class AccountsRepository(IDbConnection db)
     return newAccount;
   }
 
-  internal Account Edit(Account update)
+  internal Profile Edit(Profile update)
   {
     string sql = @"
             UPDATE accounts
@@ -36,7 +36,7 @@ public class AccountsRepository(IDbConnection db)
               github = @Github,
               linkedin = @Linkedin,
               resume = @Resume,
-              bio = @Bio,
+              bio = @Bio
             WHERE id = @Id;";
     db.Execute(sql, update);
     return update;

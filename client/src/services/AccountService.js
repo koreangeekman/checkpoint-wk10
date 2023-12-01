@@ -13,9 +13,9 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
-  async updateProfile() {
+  async updateProfile(profileData) {
     try {
-      const res = await api.put('/account')
+      const res = await api.put('/account', profileData)
       AppState.account = new Account(res.data)
     } catch (err) {
       logger.error('Attempted account updates', err)
