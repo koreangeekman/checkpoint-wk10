@@ -31,7 +31,12 @@ public class AccountsRepository(IDbConnection db)
             UPDATE accounts
             SET 
               name = @Name,
-              picture = @Picture
+              picture = @Picture,
+              website = @Website,
+              github = @Github,
+              linkedin = @Linkedin,
+              resume = @Resume,
+              bio = @Bio,
             WHERE id = @Id;";
     db.Execute(sql, update);
     return update;

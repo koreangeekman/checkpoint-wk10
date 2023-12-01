@@ -13,6 +13,14 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+  async updateProfile() {
+    try {
+      const res = await api.put('/account')
+      AppState.account = new Account(res.data)
+    } catch (err) {
+      logger.error('Attempted account updates', err)
+    }
+  }
 
   async getFavsByAccountId() {
     try {

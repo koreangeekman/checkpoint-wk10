@@ -22,6 +22,11 @@ public class AccountService(AccountsRepository repo)
     Account original = GetProfileByEmail(userEmail);
     original.Name = editData.Name?.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture?.Length > 0 ? editData.Picture : original.Picture;
+    original.Website = editData.Website?.Length > 0 ? editData.Website : original.Website;
+    original.Github = editData.Github?.Length > 0 ? editData.Github : original.Github;
+    original.Linkedin = editData.Linkedin?.Length > 0 ? editData.Github : original.Github;
+    original.Resume = editData.Resume?.Length > 0 ? editData.Github : original.Github;
+    original.Bio = editData.Bio?.Length > 0 ? editData.Github : original.Github;
     return repo.Edit(original);
   }
 }

@@ -3,9 +3,9 @@
     <section class="row justify-content-center">
       <div class="col-12 d-flex justify-content-center position-relative" v-if="account?.id">
         <span class="d-flex justify-content-between position-absolute filter shadow rounded px-2 py-1">
-          <button class="mx-2 btn selectable" @click="sortBy('all')">Show All</button>
-          <button class="mx-2 btn selectable" @click="sortBy('mine')">My Recipes</button>
-          <button class="mx-2 btn selectable" @click="sortBy('favs')">Favorites</button>
+          <button class="mx-2 btn selectable" @click="applyFilter('all')">Show All</button>
+          <button class="mx-2 btn selectable" @click="applyFilter('mine')">My Recipes</button>
+          <button class="mx-2 btn selectable" @click="applyFilter('favs')">Favorites</button>
         </span>
       </div>
       <div class="col-12 col-md-4 text-center p-4" v-for="recipe in recipes">
@@ -53,12 +53,26 @@ import RecipeDetails from "../components/RecipeDetails.vue";
 export default {
   setup() {
 
+    const filterBy = ref('all');
     const recipes = ref([]);
     watchEffect(() => {
-      if (AppState.account.id) {
+      if (AppState.account.id && AppState.favRecipes.length == 0) {
         _getFavRecipes();
       }
+      if (filterBy.value || AppState.recipes.length) {
+        _filtering()
+      }
     })
+
+    function _filtering() {
+      if (filterBy == 'favs') {
+        recipes.value = AppState.favRecipes;
+      } else if (filterBy == 'mine') {
+        recipes.value = [...AppState.recipes].filter(r => r.creatorId == this.account.id);
+      } else {
+        recipes.value = AppState.recipes;
+      }
+    }
 
     onMounted(() => {
       _getRecipes();
@@ -80,17 +94,13 @@ export default {
     }
 
     return {
+      filterBy,
       recipes,
       account: computed(() => AppState.account),
 
-      sortBy(filterBy) {
-        if (filterBy == 'favs') {
-          recipes.value = AppState.favRecipes;
-        } else if (filterBy == 'mine') {
-          recipes.value = [...AppState.recipes].filter(r => r.creatorId == this.account.id);
-        } else {
-          recipes.value = AppState.recipes;
-        }
+      applyFilter(filter) {
+        filterBy.value = filter;
+        _filtering();
       }
 
     };

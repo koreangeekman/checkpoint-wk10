@@ -2,7 +2,6 @@
   <div class="favorites fs-2" @click.stop="toggleFav()">
     <i v-if="favorite" class="text-warning mdi mdi-star"></i>
     <i v-else class="text-secondary mdi mdi-star-outline"></i>
-
   </div>
 </template>
 

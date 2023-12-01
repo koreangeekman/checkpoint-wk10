@@ -3,7 +3,10 @@
     <section class="row p-3 m-0" v-if="activeRecipe?.id">
       <div class="col-12 d-md-none">
         <span class="d-flex align-items-center justify-content-between">
-          <span class="">
+          <span class="align-self-start me-2">
+            <Favorites :recipeId="activeRecipe.id" />
+          </span>
+          <span class="w-100">
             <p class="mb-0 fw-bold fs-4">{{ activeRecipe.title }}</p>
             <p class="mb-0">{{ activeRecipe.subtitle }}</p>
           </span>
@@ -21,7 +24,10 @@
         <section class="row h-100 pb-2">
           <div class="col-12 d-none d-md-inline">
             <span class="d-flex align-items-center justify-content-between">
-              <span class="">
+              <span class="align-self-start me-1">
+                <Favorites :recipeId="activeRecipe.id" />
+              </span>
+              <span class="me-auto">
                 <p class="mb-0 fw-bold fs-4">{{ activeRecipe.title }}</p>
                 <p class="mb-0">{{ activeRecipe.subtitle }}</p>
               </span>
@@ -45,13 +51,14 @@
 
 
 <script>
+import Pop from "../utils/Pop";
+import { computed } from 'vue';
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
-import { computed } from 'vue';
+import { recipeService } from "../services/RecipeService";
 import IngredientsList from "./IngredientsList.vue";
 import Instructions from "./Instructions.vue";
-import Pop from "../utils/Pop";
-import { recipeService } from "../services/RecipeService";
+import Favorites from "./Favorites.vue";
 
 export default {
   setup() {
@@ -74,7 +81,7 @@ export default {
       }
     };
   },
-  components: { IngredientsList, Instructions }
+  components: { IngredientsList, Instructions, Favorites }
 };
 </script>
 
