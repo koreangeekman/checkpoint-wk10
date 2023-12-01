@@ -1,27 +1,29 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+  <nav class="navbar navbar-expand-sm px-3 position-absolute w-100">
+    <div class="d-flex justify-content-between align-items-start w-100 h-100">
+      <div class="px-4"></div>
+      <div class="w-100 d-flex justify-content-center pt-2">
+        <div class="cover-title rounded px-3 pb-2 text-center">
+          <p class="fs-1 mb-0 fw-bold text-light">All Spice</p>
+          <p class="fs-5 mb-0 text-light">
+            Cherish Your Family <br>
+            And Their Cooking
+          </p>
+        </div>
       </div>
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <div>
-        <button class="btn text-light" @click="toggleTheme"><i class="mdi" :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
+      <div class="">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarText">
+          <!-- <div class="ms-auto">
+        <button class="btn text-light" @click="toggleTheme"><i class="mdi"
+          :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
+      </div> -->
+          <Login />
+        </div>
       </div>
-      <Login />
     </div>
   </nav>
 </template>
@@ -65,6 +67,11 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.cover-title {
+  background-color: #00000039;
+  width: fit-content;
 }
 
 @media screen and (min-width: 768px) {

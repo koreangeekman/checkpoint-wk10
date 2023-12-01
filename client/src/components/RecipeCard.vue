@@ -1,5 +1,5 @@
 <template>
-  <div class="recipe-card rounded shadow p-2 selectable" data-bs-toggle="modal" data-bs-target="#newRecipe">
+  <div class="recipe-card rounded shadow p-2 selectable" data-bs-toggle="modal" data-bs-target="#recipeDetails">
     <div class="d-flex flex-column justify-content-between h-100">
       <p class="mb-0 category shadow rounded-pill bg-grey fw-bold px-3 py-1">{{ recipe.category }}</p>
       <span class="shadow rounded bg-grey text-start px-2 py-1">

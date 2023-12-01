@@ -1,13 +1,14 @@
 <template>
-  <header>
+  <div class="w-100 shadow mb-3">
+    <img alt="cover image" class="coverImg"
+      src="https://images.unsplash.com/photo-1556909211-36987daf7b4d?q=80&w=1280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+  </div>
+  <header class="position-absolute w-100">
     <Navbar />
   </header>
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
-  </footer>
 </template>
 
 <script>
@@ -27,14 +28,18 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-:root{
-  --main-height: calc(100vh - 32px - 64px);
+:root {
+  --main-height: calc(100vh - 64px);
 }
 
-
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+.coverImg {
+  width: 100%;
+  height: 32.4rem;
+  object-fit: cover;
+  object-position: bottom;
+  /* padding-bottom: 0rem; */
+  margin-bottom: -6.4rem;
+  clip-path: inset(0 0 6.4rem 0);
+  z-index: -1;
 }
 </style>

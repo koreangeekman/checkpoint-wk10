@@ -2,7 +2,7 @@
   <div class="modal fade" :id="modalId" tabindex="-1" :aria-labelledby="modalId + 'Label'" aria-hidden="true">
     <div class="modal-dialog" :class="modalSize">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" v-if="showHeader">
           <h1 class="modal-title fs-5" :id="modalId + 'Label'">
             <slot name="modalTitle"></slot>
           </h1>
@@ -31,6 +31,7 @@ export default {
   props: {
     modalId: { type: String },
     modalSize: { type: String, default: '' },
+    showHeader: { type: Boolean, default: false },
     showFooter: { type: Boolean, default: false }
   },
 
