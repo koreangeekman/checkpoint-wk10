@@ -4,6 +4,9 @@ import { Recipe } from "../models/Recipe";
 import { logger } from "../utils/Logger";
 import { api } from "./AxiosService";
 
+function recipeIndex(recipeId) {
+  return AppState.recipes.findIndex(r => r.id = recipeId);
+}
 class RecipeService {
 
   async getRecipes() {
@@ -13,7 +16,10 @@ class RecipeService {
 
   async getRecipeById(recipeId) {
     const res = await api.get('api/recipes/' + recipeId);
-    AppState.activeRecipe = new Recipe(res.data);
+    const recipe = new Recipe(res.data);
+    AppState.activeRecipe = recipe;
+    const index = recipeIndex(recipeId)
+    AppState.recipes.splice(index, 1, recipe) // splice in new copy in case of changes since page load
   }
   async getIngredientsByRecipeId(recipeId) {
     const res = await api.get('api/recipes/' + recipeId + '/ingredients');
@@ -33,7 +39,8 @@ class RecipeService {
 
   async updateRecipe(recipeData) {
     const res = await api.put('api/recipes/' + recipeData.id, recipeData);
-
+    const index = recipeIndex(recipeData.id)
+    AppState.recipes.splice(index, 1, recipeData);
   }
 }
 

@@ -5,7 +5,7 @@
         <img :src="activeRecipe.img" :alt="activeRecipe.name" class="img-fluid">
       </div>
       <div class="col-12 col-md-8 py-5">
-        <section class="row">
+        <section class="row h-100">
           <span class="d-flex align-items-center justify-content-between mb-2">
             <span class="">
               <p class="mb-0 fw-bold fs-4">{{ activeRecipe.title }}</p>
@@ -17,14 +17,10 @@
             </span>
           </span>
           <div class="col-12 col-md-6 p-3">
-            <div class="card p-2">
-              {{ activeRecipe.instructions }}
-            </div>
+            <Instructions :instructions="activeRecipe.instructions" />
           </div>
           <div class="col-12 col-md-6 p-3">
-            <div class="card p-2">
-              {{ ingredients }}
-            </div>
+            <IngredientsList />
           </div>
         </section>
       </div>
@@ -37,6 +33,8 @@
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
 import { computed } from 'vue';
+import IngredientsList from "./IngredientsList.vue";
+import Instructions from "./Instructions.vue";
 
 export default {
   setup() {
@@ -44,13 +42,13 @@ export default {
       account: computed(() => AppState.account),
       activeRecipe: computed(() => AppState.activeRecipe),
       ingredients: computed(() => AppState.ingredients),
-
       editRecipe() {
         Modal.getOrCreateInstance('#recipeDetails').hide();
         Modal.getOrCreateInstance('#editRecipe').show();
       }
-    }
-  }
+    };
+  },
+  components: { IngredientsList, Instructions }
 };
 </script>
 

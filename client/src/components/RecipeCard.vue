@@ -37,11 +37,12 @@ export default {
       img: computed(() => `url('${props.recipe.img}')`),
 
       async selectRecipe(recipeObj) {
-        AppState.activeRecipe = recipeObj;
-        _getRecipeById(recipeObj.id);
-        _getIngredientsByRecipeId(recipeObj.id);
+        AppState.activeRecipe = recipeObj; // for user experience, immediately populate
+        _getRecipeById(recipeObj.id); // get in case of any changes since page load
+        _getIngredientsByRecipeId(recipeObj.id); // not currently set to populate on recipe
         Modal.getOrCreateInstance('#recipeDetails').show();
-      }
+      },
+
     }
   }
 };
