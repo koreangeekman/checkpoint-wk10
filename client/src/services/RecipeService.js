@@ -1,4 +1,5 @@
 import { AppState } from "../AppState";
+import { Ingredient } from "../models/Ingredient";
 import { Recipe } from "../models/Recipe";
 import { logger } from "../utils/Logger";
 import { api } from "./AxiosService";
@@ -13,6 +14,10 @@ class RecipeService {
   async getRecipeById(recipeId) {
     const res = await api.get('api/recipes/' + recipeId);
     AppState.activeRecipe = new Recipe(res.data);
+  }
+  async getIngredientsByRecipeId(recipeId) {
+    const res = await api.get('api/recipes/' + recipeId + '/ingredients');
+    AppState.ingredients = res.data.map(i => new Ingredient(i));
   }
 
   async createRecipe(recipeData) {

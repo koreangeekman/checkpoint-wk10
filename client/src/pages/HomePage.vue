@@ -33,7 +33,7 @@
   <ModalComponent :modalId="'recipeDetails'" :modalSize="'modal-xl'">
     <!-- <template #modalTitle></template> -->
     <template #modalBody>
-      boop
+      <RecipeDetails />
     </template>
     <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
@@ -41,7 +41,6 @@
 
 <script>
 import Pop from "../utils/Pop";
-import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
 import { computed, onMounted, ref, watchEffect } from "vue";
 import RecipeCard from "../components/RecipeCard.vue";
@@ -49,6 +48,7 @@ import RecipeForm from "../components/RecipeForm.vue";
 import ModalComponent from "../components/ModalComponent.vue";
 import { recipeService } from "../services/RecipeService";
 import { accountService } from "../services/AccountService";
+import RecipeDetails from "../components/RecipeDetails.vue";
 
 export default {
   setup() {
@@ -95,7 +95,7 @@ export default {
 
     };
   },
-  components: { RecipeCard, RecipeForm, ModalComponent }
+  components: { RecipeCard, RecipeForm, ModalComponent, RecipeDetails }
 }
 </script>
 

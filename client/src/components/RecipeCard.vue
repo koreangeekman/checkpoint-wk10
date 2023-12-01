@@ -1,5 +1,5 @@
 <template>
-  <div class="recipe-card rounded shadow p-2 selectable" data-bs-toggle="modal" data-bs-target="#recipeDetails">
+  <div class="recipe-card rounded shadow p-2 selectable" @click="selectRecipe(recipe)">
     <div class="d-flex flex-column justify-content-between h-100">
       <p class="mb-0 category shadow rounded-pill bg-grey fw-bold px-3 py-1">{{ recipe.category }}</p>
       <span class="shadow rounded bg-grey text-start px-2 py-1">
@@ -15,7 +15,7 @@
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { Recipe } from "../models/Recipe";
 import { recipeService } from "../services/RecipeService";
 
@@ -23,18 +23,16 @@ export default {
   props: { recipe: { type: Recipe } },
 
   setup(props) {
+
     async function _getRecipeById(recipeId) {
-      try {
-        await recipeService.getRecipeById(recipeId)
-      }
+      try { await recipeService.getRecipeById(recipeId) }
       catch (error) { Pop.error(error); }
     }
     async function _getIngredientsByRecipeId(recipeId) {
-      try {
-        await recipeService.getIngredientsByRecipeId(recipeId)
-      }
+      try { await recipeService.getIngredientsByRecipeId(recipeId); }
       catch (error) { Pop.error(error); }
     }
+
     return {
       img: computed(() => `url('${props.recipe.img}')`),
 

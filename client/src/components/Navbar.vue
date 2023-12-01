@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-sm px-3 position-absolute w-100">
     <div class="d-flex justify-content-between align-items-start w-100 h-100">
-      <div class="px-4"></div>
+      <div class="pe-1">
+        <i data-bs-toggle="modal" data-bs-target="#newRecipe" v-if="account?.id"
+          class="selectable p-0 px-3 btn fs-1 mdi mdi-plus-circle"></i>
+      </div>
       <div class="w-100 d-flex justify-content-center pt-2">
         <div class="cover-title rounded px-3 pb-2 text-center">
           <p class="fs-1 mb-0 fw-bold text-light">All Spice</p>
@@ -29,9 +32,10 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from "../AppState";
 export default {
   setup() {
 
@@ -43,6 +47,7 @@ export default {
 
     return {
       theme,
+      account: computed(() => AppState.account),
       toggleTheme() {
         theme.value = theme.value == 'light' ? 'dark' : 'light'
         document.documentElement.setAttribute('data-bs-theme', theme.value)

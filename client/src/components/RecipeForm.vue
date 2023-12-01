@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createRecipe()" class="">
+  <form @submit.prevent="routeSubmit()" class="">
     <span class="d-flex">
       <div class="me-2 mb-3 w-100">
         <label for="title">Title</label>
@@ -46,15 +46,18 @@
         <p class="mb-0">{{ (recipeForm.instructions?.length ?? 0) + '/2000' }}</p>
       </span>
     </div>
-    <button class="btn btn-primary" type="submit">Add Recipe</button>
+    <button v-if="recipeForm.id" class="btn btn-primary" type="submit">Update Recipe</button>
+    <button v-else class="btn btn-primary" type="submit">Add Recipe</button>
   </form>
 </template>
 
 
 <script>
+import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
 import { computed, ref, watchEffect } from 'vue';
+import { recipeService } from "../services/RecipeService";
 
 export default {
   props: { edit: { type: Boolean, default: false } },
@@ -75,6 +78,13 @@ export default {
       categories: computed(() => AppState.categories),
       // activeRecipe: computed(() => AppState.activeRecipe),
 
+      routeSubmit() {
+        if (recipeForm.value.id) {
+          this.updateRecipe();
+        } else {
+          this.createRecipe();
+        }
+      },
       async createRecipe() {
         try {
           await recipeService.createRecipe(recipeForm.value);
