@@ -19,7 +19,6 @@
     <template #modalBody>
       <RecipeForm />
     </template>
-    <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
 
   <ModalComponent :modalId="'editRecipe'" :modalSize="'modal-lg'" :showHeader="true">
@@ -27,7 +26,6 @@
     <template #modalBody>
       <RecipeForm :edit="true" />
     </template>
-    <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
 
   <ModalComponent :modalId="'recipeDetails'" :modalSize="'modal-xl'">
@@ -35,7 +33,6 @@
     <template #modalBody>
       <RecipeDetails />
     </template>
-    <!-- <template #modalFooter>submit button</template> -->
   </ModalComponent>
 </template>
 

@@ -23,7 +23,7 @@
         <input v-model="recipeForm.subtitle" type="text" class="form-control" name="subtitle" maxlength="50" required
           placeholder="Summarize...">
         <span class="d-flex justify-content-between text-grey px-2">
-          <p class="mb-0">A brief description of the receipe</p>
+          <p class="mb-0">A brief description of the recipe</p>
           <p class="mb-0">{{ (recipeForm.subtitle?.length ?? 0) + '/50' }}</p>
         </span>
       </div>
@@ -33,7 +33,7 @@
           placeholder="Image URL...">
         <span class="d-flex justify-content-between text-grey px-2">
           <p class="mb-0"></p>
-          <p class="mb-0">{{ (recipeForm.subtitle?.length ?? 0) + '/360' }}</p>
+          <p class="mb-0">{{ (recipeForm.img?.length ?? 0) + '/360' }}</p>
         </span>
       </div>
     </span>

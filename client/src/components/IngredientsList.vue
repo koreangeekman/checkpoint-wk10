@@ -35,7 +35,7 @@ import { logger } from "../utils/Logger";
 
 export default {
   props: {
-    recipeId: { type: String },
+    recipeId: { type: Number },
     creatorId: { type: String }
   },
 
