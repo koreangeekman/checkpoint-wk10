@@ -7,7 +7,7 @@
           placeholder="Recipe name...">
         <span class="d-flex justify-content-between text-grey px-2">
           <p class="mb-0"></p>
-          <p class="mb-0">{{ (recipeForm.title?.length ?? 0) + '/50' }}</p>
+          <p class="mb-0 tiny">{{ (recipeForm.title?.length ?? 0) + '/50' }}</p>
         </span>
       </div>
       <div class="ms-2 mb-3 w-50">
@@ -23,8 +23,8 @@
         <input v-model="recipeForm.subtitle" type="text" class="form-control shadow" name="subtitle" maxlength="50"
           required placeholder="Summarize...">
         <span class="d-flex justify-content-between text-grey px-2">
-          <p class="mb-0">A brief description of the recipe</p>
-          <p class="mb-0">{{ (recipeForm.subtitle?.length ?? 0) + '/50' }}</p>
+          <p class="mb-0 tiny">A brief description of the recipe</p>
+          <p class="mb-0 tiny">{{ (recipeForm.subtitle?.length ?? 0) + '/50' }}</p>
         </span>
       </div>
       <div class="ms-2 mb-3 w-100">
@@ -32,8 +32,8 @@
         <input v-model="recipeForm.img" type="url" class="form-control shadow" name="img" maxlength="360" required
           placeholder="Image URL...">
         <span class="d-flex justify-content-between text-grey px-2">
-          <p class="mb-0"></p>
-          <p class="mb-0">{{ (recipeForm.img?.length ?? 0) + '/360' }}</p>
+          <p class="mb-0 tiny"></p>
+          <p class="mb-0 tiny">{{ (recipeForm.img?.length ?? 0) + '/360' }}</p>
         </span>
       </div>
     </span>
@@ -42,8 +42,8 @@
       <textarea v-model="recipeForm.instructions" class="form-control shadow" name="instructions" maxlength="2000"
         rows="6" required placeholder="What to do..."></textarea>
       <span class="d-flex justify-content-between text-grey px-2">
-        <p class="mb-0">A detailed outline of the instructions</p>
-        <p class="mb-0">{{ (recipeForm.instructions?.length ?? 0) + '/2000' }}</p>
+        <p class="mb-0 tiny">A detailed outline of the instructions</p>
+        <p class="mb-0 tiny">{{ (recipeForm.instructions?.length ?? 0) + '/2000' }}</p>
       </span>
     </div>
     <button v-if="recipeForm.id" class="btn btn-primary shadow" type="submit">Update Recipe</button>
@@ -108,4 +108,9 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tiny {
+  font-size: .8em;
+  color: grey;
+}
+</style>
