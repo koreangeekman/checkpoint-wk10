@@ -21,10 +21,8 @@ export default {
 
       favorite: computed(() => {
         const exists = AppState.favRecipes.find(r => r.id == props.recipeId);
-        // logger.log('exists?', exists, props.routineId);
-        if (exists) {
-          return exists.favoriteId;
-        }
+        // logger.log('exists?', exists?.favoriteId, exists, props.routineId);
+        if (exists) { return exists.favoriteId; }
         return false;
       }),
 
