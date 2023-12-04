@@ -40,12 +40,12 @@
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState";
 import { computed, onMounted, ref, watchEffect } from "vue";
+import { accountService } from "../services/AccountService";
+import { recipeService } from "../services/RecipeService";
+import ModalComponent from "../components/ModalComponent.vue";
+import RecipeDetails from "../components/RecipeDetails.vue";
 import RecipeCard from "../components/RecipeCard.vue";
 import RecipeForm from "../components/RecipeForm.vue";
-import ModalComponent from "../components/ModalComponent.vue";
-import { recipeService } from "../services/RecipeService";
-import { accountService } from "../services/AccountService";
-import RecipeDetails from "../components/RecipeDetails.vue";
 
 export default {
   setup() {

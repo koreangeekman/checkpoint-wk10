@@ -43,7 +43,7 @@ export default {
       }
     }
     return {
-      img: computed(() => `url('${props.recipe.img}')`),
+      imgUrl: computed(() => `url('${props.recipe.img}')`),
       account: computed(() => AppState.account),
       async selectRecipe(recipeObj) {
         AppState.activeRecipe = recipeObj; // for user experience, immediately populate
@@ -60,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .recipe-card {
-  background-image: var(img);
+  background-image: v-bind(imgUrl);
   background-position: center;
   background-size: cover;
   height: 15rem;
@@ -72,6 +72,8 @@ export default {
 
   .bg-grey {
     background-color: #80808080;
+    color: white;
+    text-shadow: 0 0 3px black;
   }
 
   .favs {
