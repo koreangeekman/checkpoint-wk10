@@ -20,7 +20,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarText">
-          <SearchComponent />
+          <SearchComponent v-if="false" />
           <!-- <div class="ms-auto">
             <button class="btn text-light" @click="toggleTheme"><i class="mdi"
               :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
@@ -79,7 +79,7 @@ a:hover {
 
 .cover-title {
   background-color: #00000039;
-  width: fit-content;
+  text-shadow: 0 0 5px grey;
 }
 
 @media screen and (min-width: 576px) {
