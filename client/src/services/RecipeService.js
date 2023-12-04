@@ -5,7 +5,9 @@ import { logger } from "../utils/Logger";
 import { api } from "./AxiosService";
 
 function recipeIndex(recipeId) {
-  return AppState.recipes.findIndex(r => r.id = recipeId);
+  const index = AppState.recipes.findIndex(r => r.id == recipeId);
+  if (index == -1) { throw new Error('Unable to locate recipe') }
+  return index
 }
 class RecipeService {
 
@@ -17,7 +19,7 @@ class RecipeService {
   async getRecipeById(recipeId) {
     const res = await api.get('api/recipes/' + recipeId);
     const recipe = new Recipe(res.data);
-    AppState.activeRecipe = recipe;
+    AppState.activeRecipe = recipe; // overwrite in new copy in case of changes since page load
     const index = recipeIndex(recipeId)
     AppState.recipes.splice(index, 1, recipe) // splice in new copy in case of changes since page load
   }

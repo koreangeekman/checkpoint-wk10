@@ -51,21 +51,22 @@ export default {
   setup() {
 
     const filterBy = ref('all');
-    const recipes = ref([]);
+    const recipes = ref([...AppState.recipes]);
+
     watchEffect(() => {
       if (AppState.account.id && AppState.favRecipes.length == 0) {
         _getFavRecipes();
       }
-      if (filterBy.value || AppState.recipes.length) {
+      if (filterBy.value || AppState.recipes.length > 0) {
         _filtering()
       }
     })
 
     function _filtering() {
-      if (filterBy == 'favs') {
+      if (filterBy.value == 'favs') {
         recipes.value = AppState.favRecipes;
-      } else if (filterBy == 'mine') {
-        recipes.value = [...AppState.recipes].filter(r => r.creatorId == this.account.id);
+      } else if (filterBy.value == 'mine') {
+        recipes.value = [...AppState.recipes].filter(r => r.creatorId == AppState.account.id);
       } else {
         recipes.value = AppState.recipes;
       }

@@ -65,6 +65,7 @@ export default {
   background-size: cover;
   height: 15rem;
   width: 100%;
+  transition: .25s;
 
   .category {
     width: fit-content;
@@ -80,5 +81,9 @@ export default {
     top: 0;
     right: .5rem;
   }
+}
+
+.recipe-card:hover {
+  transform: scale(103%);
 }
 </style>

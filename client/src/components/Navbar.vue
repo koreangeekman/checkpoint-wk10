@@ -20,10 +20,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarText">
+          <SearchComponent />
           <!-- <div class="ms-auto">
-        <button class="btn text-light" @click="toggleTheme"><i class="mdi"
-          :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
-      </div> -->
+            <button class="btn text-light" @click="toggleTheme"><i class="mdi"
+              :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
+          </div> -->
           <Login />
         </div>
       </div>
@@ -34,8 +35,10 @@
 <script>
 import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
-import Login from './Login.vue';
+import SearchComponent from "./SearchComponent.vue";
 import { AppState } from "../AppState";
+import Login from './Login.vue';
+
 export default {
   setup() {
 
@@ -55,7 +58,7 @@ export default {
       }
     }
   },
-  components: { Login }
+  components: { Login, SearchComponent }
 }
 </script>
 
@@ -79,7 +82,7 @@ a:hover {
   width: fit-content;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 576px) {
   nav {
     height: 64px;
   }
