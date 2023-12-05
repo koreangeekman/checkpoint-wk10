@@ -2,32 +2,32 @@ namespace wk10.Services;
 
 public class InstructionStepService
 {
-  private readonly InstructionStepRepo ISRepo;
+  private readonly InstructionStepRepo iStepRepo;
   private readonly RecipeRepo recipeRepo;
 
-  public InstructionStepService(InstructionStepRepo isRepo, RecipeRepo _recipeRepo)
+  public InstructionStepService(InstructionStepRepo _iStepRepo, RecipeRepo _recipeRepo)
   {
-    ISRepo = isRepo;
+    iStepRepo = _iStepRepo;
     recipeRepo = _recipeRepo;
   }
 
   internal List<InstructionStep> GetInstructions(int recipeId)
-  { return ISRepo.GetInstructions(recipeId); }
+  { return iStepRepo.GetInstructions(recipeId); }
 
   internal InstructionStep GetStepById(int stepId)
-  {
-    return ISRepo.GetStepById(stepId) ?? throw new Exception("Cannot find by ID");
-  }
+  { return iStepRepo.GetStepById(stepId) ?? throw new Exception("Cannot find by ID"); }
 
   // internal int GetStepCountForRecipe(int recipeId)
-  // { return ISRepo.GetStepCountForRecipe(recipeId); }
+  // { return iStepRepo.GetStepCountForRecipe(recipeId); }
 
-  internal InstructionStep CreateStep(InstructionStep stepData)
+  internal InstructionStep CreateStep(string creatorId, InstructionStep stepData)
   {
+    Recipe recipe = recipeRepo.GetRecipeById(stepData.RecipeId);
+    if (recipe.CreatorId != creatorId) { throw new Exception("Forbidden action"); }
     // int steps = GetStepCountForRecipe(stepData.RecipeId);
     // if (stepData.Position == null || stepData.Position > steps + 1 || stepData.Position < 1)
     // { stepData.Position = steps + 1; }
-    return ISRepo.CreateStep(stepData);
+    return iStepRepo.CreateStep(stepData);
   }
 
   internal InstructionStep UpdateStep(string creatorId, InstructionStep stepData)
@@ -35,13 +35,13 @@ public class InstructionStepService
     InstructionStep step = CheckOwner(creatorId, stepData.Id);
     step.Position = stepData.Position ?? step.Position;
     step.Body = stepData.Body ?? step.Body;
-    return ISRepo.UpdateStep(stepData);
+    return iStepRepo.UpdateStep(stepData);
   }
 
   internal string RemoveStep(string creatorId, int stepId)
   {
     InstructionStep step = CheckOwner(creatorId, stepId);
-    ISRepo.RemoveStep(stepId);
+    iStepRepo.RemoveStep(stepId);
     return $"Step {step.Position} removed";
   }
 
