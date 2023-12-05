@@ -3,7 +3,7 @@
     <span class="d-flex">
       <div class="me-2 mb-3 w-100">
         <label for="title">Title</label>
-        <input v-model="recipeForm.title" type="text" class="form-control shadow" name="title" maxlength="50" required
+        <input v-model="recipeForm.title" type="text" class="form-control shadow" id="title" maxlength="50" required
           placeholder="Recipe name...">
         <span class="d-flex justify-content-between text-grey px-2">
           <p class="mb-0"></p>
@@ -12,7 +12,7 @@
       </div>
       <div class="ms-2 mb-3 w-50">
         <label for="category">Category</label>
-        <select v-model="recipeForm.category" type="text" class="form-control shadow" name="category" required>
+        <select v-model="recipeForm.category" type="text" class="form-control shadow" id="category" required>
           <option v-for="category in categories" :value="category">{{ category }}</option>
         </select>
       </div>
@@ -20,8 +20,8 @@
     <span class="d-flex">
       <div class="me-2 mb-3 w-100">
         <label for="subtitle">Sub-Title</label>
-        <input v-model="recipeForm.subtitle" type="text" class="form-control shadow" name="subtitle" maxlength="50"
-          required placeholder="Summarize...">
+        <input v-model="recipeForm.subtitle" type="text" class="form-control shadow" id="subtitle" maxlength="50" required
+          placeholder="Summarize...">
         <span class="d-flex justify-content-between text-grey px-2">
           <p class="mb-0 tiny">A brief description of the recipe</p>
           <p class="mb-0 tiny">{{ (recipeForm.subtitle?.length ?? 0) + '/50' }}</p>
@@ -29,7 +29,7 @@
       </div>
       <div class="ms-2 mb-3 w-100">
         <label for="img">Cover Image</label>
-        <input v-model="recipeForm.img" type="url" class="form-control shadow" name="img" maxlength="360" required
+        <input v-model="recipeForm.img" type="url" class="form-control shadow" id="img" maxlength="360" required
           placeholder="Image URL...">
         <span class="d-flex justify-content-between text-grey px-2">
           <p class="mb-0 tiny"></p>
@@ -39,8 +39,8 @@
     </span>
     <div class="mb-3">
       <label for="instructions">Instructions</label>
-      <textarea v-model="recipeForm.instructions" class="form-control shadow" name="instructions" maxlength="2000"
-        rows="6" required placeholder="What to do..."></textarea>
+      <textarea v-model="recipeForm.instructions" class="form-control shadow" id="instructions" maxlength="2000" rows="6"
+        required placeholder="What to do..."></textarea>
       <span class="d-flex justify-content-between text-grey px-2">
         <p class="mb-0 tiny">A detailed outline of the instructions</p>
         <p class="mb-0 tiny">{{ (recipeForm.instructions?.length ?? 0) + '/2000' }}</p>
