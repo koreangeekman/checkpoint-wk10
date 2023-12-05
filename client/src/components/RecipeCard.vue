@@ -19,9 +19,10 @@ import Pop from "../utils/Pop";
 import { computed } from 'vue';
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
-import { Recipe } from "../models/Recipe";
 import Favorites from "./Favorites.vue";
+import { Recipe } from "../models/Recipe";
 import { recipeService } from "../services/RecipeService";
+import { instructionStepService } from "../services/InstructionStepService";
 
 export default {
   props: { recipe: { type: Recipe } },
@@ -42,6 +43,14 @@ export default {
         Pop.error(error);
       }
     }
+    async function _getInstructionsByRecipeId(recipeId) {
+      try {
+        await instructionStepService.getInstructions(recipeId);
+      }
+      catch (error) {
+        Pop.error(error);
+      }
+    }
     return {
       imgUrl: computed(() => `url('${props.recipe.img}')`),
       account: computed(() => AppState.account),
@@ -49,6 +58,7 @@ export default {
         AppState.activeRecipe = recipeObj; // for user experience, immediately populate
         _getRecipeById(recipeObj.id); // get in case of any changes since page load
         _getIngredientsByRecipeId(recipeObj.id); // not currently set to populate on recipe
+        _getInstructionsByRecipeId(recipeObj.id); // not currently set to populate on recipe
         Modal.getOrCreateInstance('#recipeDetails').show();
       },
     };

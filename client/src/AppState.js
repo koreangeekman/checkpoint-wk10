@@ -14,6 +14,8 @@ export const AppState = reactive({
   activeRecipe: {},
   /** @type {import('./models/Ingredient.js').Ingredient[]} */
   ingredients: [],
+  /** @type {import('./models/InstructionStep.js').InstructionStep[]} */
+  instructions: [],
 
   categories: ['Soup', 'Salad', 'Pasta', 'Fish', 'Beef', 'Pork', 'Burger', 'Fusion', 'Snack', 'Other']
 

@@ -2,6 +2,13 @@
   <div class="rounded shadow card">
     <div class="bg-green rounded-top shadow text-center py-1 mb-2 fs-3">INGREDIENTS</div>
     <div class="mb-auto">
+      <div class="list d-flex align-items-center px-2 m-1">
+        <span class="d-flex w-100 pb-2 border-bottom">
+          <p class="mb-0">Quantity</p>
+          <p class="mb-0 mx-2">●</p>
+          <p class="mb-0">Ingredient</p>
+        </span>
+      </div>
       <div class="list d-flex align-items-center pt-1 px-2 m-1" v-for="ingredient in ingredients">
         <span class="d-flex showHidden w-100">
           <p class="mb-0">{{ ingredient.quantity }}</p>
@@ -61,7 +68,7 @@ export default {
       },
       async removeIngredient(ingredientId) {
         try {
-          const yes = await Pop.confirm('Delete this ingredient?');
+          const yes = await Pop.confirm('Remove this ingredient?');
           if (!yes) { return }
           await ingredientService.removeIngredient(ingredientId);
         }

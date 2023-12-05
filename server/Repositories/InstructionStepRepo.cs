@@ -37,13 +37,13 @@ public class InstructionStepRepo
         INSERT INTO
             instructions(position, body, recipeId)
         SELECT
-            MAX(position) + 1 AS position,
+            MAX(position) + 1,
             @Body,
             @RecipeId
         FROM instructions
         WHERE recipeId = @RecipeId;
 
-        SELECT * FROM instructions WHERE id = LAST_INSERT_ID;";
+        SELECT * FROM instructions WHERE id = LAST_INSERT_ID();";
     return db.QueryFirstOrDefault<InstructionStep>(sql, stepData);
   }
 
