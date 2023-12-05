@@ -7,5 +7,4 @@ public class Ingredient
   public string Quantity { get; set; }
   public string CreatorId { get; set; }
   public int RecipeId { get; set; }
-  public Recipe Recipe { get; set; }
 }
