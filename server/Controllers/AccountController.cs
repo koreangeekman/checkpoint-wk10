@@ -2,20 +2,28 @@ namespace wk10.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AccountController(
-  AccountService accountService,
-  Auth0Provider auth0Provider,
-  FavService favService
-  ) : ControllerBase
+public class AccountController : ControllerBase
 {
+
+  private readonly Auth0Provider _a0;
+  private readonly AccountService _accountService;
+  private readonly FavService _favService;
+
+  public AccountController(RecipeService recipeService, AccountService accountService, Auth0Provider a0, FavService favService)
+  {
+    _a0 = a0;
+    _accountService = accountService;
+    _favService = favService;
+  }
+
   [HttpGet]
   [Authorize]
   public async Task<ActionResult<Account>> Get()
   {
     try
     {
-      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(accountService.GetOrCreateProfile(userInfo));
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_accountService.GetOrCreateProfile(userInfo));
     }
     catch (Exception e)
     {
@@ -29,8 +37,8 @@ public class AccountController(
   {
     try
     {
-      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(favService.GetFavoritesByAccountId(userInfo.Id));
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_favService.GetFavoritesByAccountId(userInfo.Id));
     }
     catch (Exception e) { return BadRequest(e.Message); }
   }
@@ -41,8 +49,8 @@ public class AccountController(
   {
     try
     {
-      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(accountService.Edit(editData, userInfo.Email));
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_accountService.Edit(editData, userInfo.Email));
     }
     catch (Exception e) { return BadRequest(e.Message); }
   }
