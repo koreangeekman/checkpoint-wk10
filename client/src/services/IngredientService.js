@@ -12,8 +12,8 @@ class IngredientService {
   }
 
   async updateIngredient(ingredientData) {
-    const res = await api.delete('api/ingredients/' + ingredientData.id, ingredientData);
-    AppState.ingredients = AppState.ingredients.filter(i => i.id != ingredientData.id);
+    const res = await api.put('api/ingredients/' + ingredientData.id, ingredientData);
+    // AppState.ingredients = AppState.ingredients.filter(i => i.id != ingredientData.id);
   }
 
   async removeIngredient(ingredientId) {

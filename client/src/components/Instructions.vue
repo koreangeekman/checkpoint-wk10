@@ -15,19 +15,23 @@
           <p class="mb-0 mx-2">●</p>
           <p class="mb-0">{{ step.body }}</p>
         </span>
-        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" v-if="creatorId == account.id"
-          @click="removeStep(step.id)"></i>
+        <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="enableEdit(step)"
+          v-if="creatorId == account.id"></i>
+        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" @click="removeStep(step.id)"
+          v-if="creatorId == account.id"></i>
       </div>
     </div>
     <hr class="m-0">
-    <div class="d-flex align-items-center p-2" v-if="creatorId == account.id">
-      <input v-model="stepForm.position" type="text" name="position" class="form-control w-50" maxlength="24" required
-        placeholder="Position..">
-      <p class="mb-0 mx-1">●</p>
-      <input v-model="stepForm.body" type="text" name="name" class="form-control" maxlength="32" required
-        placeholder="Instruction..">
-      <i class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" tabindex="0" @click="addStep()" type="button"
-        :class="(stepForm.position == '' || stepForm.position == null || stepForm.body == '' || stepForm.body == null) ? 'disabled' : ''"></i>
+    <div v-if="creatorId == account.id">
+      <form @submit.prevent="submitForm()" class="d-flex align-items-center p-2">
+        <input v-model="stepForm.position" type="text" name="position" class="form-control w-50" maxlength="24" required
+          placeholder="Position..">
+        <p class="mb-0 mx-1">●</p>
+        <input v-model="stepForm.body" type="text" name="name" class="form-control" maxlength="32" required
+          placeholder="Instruction..">
+        <i class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" tabindex="0" @click="addStep()" type="button"
+          :class="(stepForm.position == '' || stepForm.position == null || stepForm.body == '' || stepForm.body == null) ? 'disabled' : ''"></i>
+      </form>
     </div>
   </div>
   <div v-else class="rounded shadow card">
@@ -92,12 +96,20 @@ export default {
   background-color: green;
 }
 
+.text-grey {
+  color: #80808080;
+}
+
 .mdi-plus {
   line-height: 1.2rem;
 }
 
 .mdi-trash-can {
   opacity: .86;
+}
+
+.mdi-pencil,
+.mdi-trash-can {
   line-height: 1.4rem;
 }
 
@@ -111,7 +123,7 @@ export default {
   opacity: 1;
 }
 
-.showHidden:hover+.hidden {
+.showHidden:hover~.hidden {
   visibility: visible;
   opacity: 1;
 }

@@ -31,7 +31,7 @@ public class IngredientsRepo(IDbConnection db)
       quantity = @Quantity
       WHERE id = @Id;
       
-      SELECT * FROM ingredients WHERE id = LAST_INSERT_ID();";
+      SELECT * FROM ingredients WHERE id = @Id;";
     return db.QueryFirstOrDefault<Ingredient>(sql, ingredientData);
   }
 

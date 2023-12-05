@@ -4,5 +4,6 @@ export class InstructionStep {
     this.position = data.position
     this.body = data.body
     this.recipeId = data.recipeId
+    this.edit = false
   }
 }

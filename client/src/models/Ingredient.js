@@ -6,5 +6,6 @@ export class Ingredient {
     this.creatorId = data.creatorId
     this.recipeId = data.recipeId
     this.recipe = data.recipe
+    this.edit = false
   }
 }

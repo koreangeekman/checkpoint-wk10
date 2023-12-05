@@ -15,19 +15,23 @@
           <p class="mb-0 mx-2">●</p>
           <p class="mb-0">{{ ingredient.name }}</p>
         </span>
-        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" v-if="creatorId == account.id"
-          @click="removeIngredient(ingredient.id)"></i>
+        <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="enableEdit(ingredient)"
+          v-if="creatorId == account.id"></i>
+        <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" @click="removeIngredient(ingredient.id)"
+          v-if="creatorId == account.id"></i>
       </div>
     </div>
     <hr class="m-0">
-    <div class="d-flex align-items-center p-2" v-if="creatorId == account.id">
-      <input v-model="ingredientForm.quantity" type="text" name="quantity" class="form-control w-50" maxlength="24"
-        required placeholder="Amount..">
-      <p class="mb-0 mx-1">●</p>
-      <input v-model="ingredientForm.name" type="text" name="name" class="form-control" maxlength="32" required
-        placeholder="Ingredient..">
-      <i class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" tabindex="0" @click="addIngredient()" type="button"
-        :class="(ingredientForm.name == '' || ingredientForm.name == null || ingredientForm.quantity == '' || ingredientForm.quantity == null) ? 'disabled' : ''"></i>
+    <div v-if="creatorId == account.id">
+      <form @submit.prevent="submitForm()" class="d-flex align-items-center p-2">
+        <input v-model="ingredientForm.quantity" type="text" name="quantity" class="form-control w-50" maxlength="24"
+          required placeholder="Amount..">
+        <p class="mb-0 mx-1">●</p>
+        <input v-model="ingredientForm.name" type="text" name="name" class="form-control" maxlength="32" required
+          placeholder="Ingredient..">
+        <button class="btn btn-primary fs-4 px-1 ms-1 mdi mdi-plus" tabindex="0" type="submit"
+          :class="(ingredientForm.name == '' || ingredientForm.name == null || ingredientForm.quantity == '' || ingredientForm.quantity == null) ? 'disabled' : ''"></button>
+      </form>
     </div>
   </div>
 </template>
@@ -54,12 +58,35 @@ export default {
       ingredients: computed(() => AppState.ingredients),
       account: computed(() => AppState.account),
 
+      enableEdit(ingredientObj) {
+        ingredientForm.value = ingredientObj;
+      },
+
+      submitForm() {
+        if (ingredientForm.value.id) {
+          this.updateIngredient(ingredientForm.value);
+        } else {
+          this.addIngredient(ingredientForm.value);
+        }
+      },
+      incompleteFormCheck() {
+        if (ingredientForm.value.name == '' ||
+          ingredientForm.value.name == null ||
+          ingredientForm.value.quantity == '' ||
+          ingredientForm.value.quantity == null) { return true }
+      },
+      async updateIngredient() {
+        try {
+          if (this.incompleteFormCheck()) { return }
+          ingredientForm.value.recipeId = props.recipeId;
+          await ingredientService.updateIngredient(ingredientForm.value);
+          ingredientForm.value = {};
+        }
+        catch (error) { Pop.error(error); }
+      },
       async addIngredient() {
         try {
-          if (ingredientForm.value.name == '' || ingredientForm.value.name == null || ingredientForm.value.quantity == '' || ingredientForm.value.quantity == null) {
-            logger.log('condition matched')
-            return
-          }
+          if (this.incompleteFormCheck()) { return }
           ingredientForm.value.recipeId = props.recipeId;
           await ingredientService.addIngredient(ingredientForm.value);
           ingredientForm.value = {};
@@ -86,12 +113,20 @@ export default {
   background-color: green;
 }
 
+.text-grey {
+  color: #80808080;
+}
+
 .mdi-plus {
   line-height: 1.2rem;
 }
 
 .mdi-trash-can {
   opacity: .86;
+}
+
+.mdi-pencil,
+.mdi-trash-can {
   line-height: 1.4rem;
 }
 
@@ -105,7 +140,7 @@ export default {
   opacity: 1;
 }
 
-.showHidden:hover+.hidden {
+.showHidden:hover~.hidden {
   visibility: visible;
   opacity: 1;
 }
