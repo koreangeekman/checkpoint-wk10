@@ -12,16 +12,17 @@ class InstructionStepService {
     AppState.instructions.push(new InstructionStep(res.data));
   }
 
-  async removeStep(stepId) {
-    const res = await api.delete('api/instructions/' + stepId);
-    AppState.instructions = AppState.instructions.filter(step => step.id != stepId);
-  }
-
   async updateStep(stepData) {
     const res = await api.put('api/instructions/' + stepData.id, stepData);
     const index = AppState.instructions.findIndex(step => step.id == stepData.id);
     AppState.instructions.splice(index, 1, new InstructionStep(res.data));
   }
+
+  async removeStep(stepId) {
+    const res = await api.delete('api/instructions/' + stepId);
+    AppState.instructions = AppState.instructions.filter(step => step.id != stepId);
+  }
+
 }
 
 export const instructionStepService = new InstructionStepService();

@@ -26,6 +26,7 @@ public class InstructionsController : ControllerBase
   public async Task<ActionResult<InstructionStep>> UpdateStep(int stepId, [FromBody] InstructionStep stepData)
   {
     Account userInfo = await a0.GetUserInfoAsync<Account>(HttpContext);
+    stepData.Id = stepId; // ensure request data consistency
     return iStepService.UpdateStep(userInfo.Id, stepData);
   }
 

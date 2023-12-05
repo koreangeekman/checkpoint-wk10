@@ -27,6 +27,18 @@ public class IngredientsController : ControllerBase
   }
 
   [Authorize]
+  [HttpPut("{ingredientId}")]
+  public async Task<ActionResult<Ingredient>> UpdateIngredient([FromBody] Ingredient ingredientData)
+  {
+    try
+    {
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_ingredientsService.UpdateIngredient(userInfo.Id, ingredientData));
+    }
+    catch (Exception e) { return BadRequest(e.Message); }
+  }
+
+  [Authorize]
   [HttpDelete("{ingredientId}")]
   public async Task<ActionResult<Ingredient>> RemoveIngredient(int ingredientId)
   {

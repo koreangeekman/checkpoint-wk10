@@ -20,6 +20,13 @@ public class IngredientsService(IngredientsRepo ingredientsRepo, RecipeService r
     return ingredientsRepo.AddIngredient(ingredientData);
   }
 
+  internal Ingredient UpdateIngredient(string creatorId, Ingredient ingredientData)
+  {
+    Ingredient ingredient = GetIngredientById(ingredientData.Id);
+    if (ingredient.CreatorId != creatorId) { throw new Exception("Forbidden action - Not your ingredient to modify"); }
+    return ingredientsRepo.UpdateIngredient(ingredientData);
+  }
+
   internal string RemoveIngredient(string creatorId, int ingredientId)
   {
     Ingredient ingredient = GetIngredientById(ingredientId);

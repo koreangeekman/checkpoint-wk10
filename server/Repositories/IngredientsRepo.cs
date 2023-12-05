@@ -24,6 +24,17 @@ public class IngredientsRepo(IDbConnection db)
     return db.QueryFirstOrDefault<Ingredient>(sql, ingredientData);
   }
 
+  internal Ingredient UpdateIngredient(Ingredient ingredientData)
+  {
+    string sql = @"UPDATE ingredients SET
+      name = @Name,
+      quantity = @Quantity
+      WHERE id = @Id;
+      
+      SELECT * FROM ingredients WHERE id = LAST_INSERT_ID();";
+    return db.QueryFirstOrDefault<Ingredient>(sql, ingredientData);
+  }
+
   internal void RemoveIngredient(int ingredientId)
   { db.Query("DELETE FROM ingredients WHERE id = @ingredientId", new { ingredientId }); }
 
