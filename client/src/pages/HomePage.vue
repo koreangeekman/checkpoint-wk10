@@ -8,7 +8,7 @@
           <button class="mx-2 btn selectable" @click="applyFilter('favs')">Favorites</button>
         </span>
       </div>
-      <div class="col-12 col-md-4 text-center p-4" v-for="recipe in recipes">
+      <div class="col-12 col-md-6 col-lg-4 text-center p-4" v-for="recipe in recipes">
         <RecipeCard :recipe="recipe" />
       </div>
     </section>

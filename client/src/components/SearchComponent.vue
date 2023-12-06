@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-3 d-flex align-items-center">
+  <div class="mx-3 d-flex align-items-center flex-nowrap">
     <input v-model="search" type="search" id="search" name="category" class="form-control" placeholder="Search...">
     <i class="ms-2 fs-3 btn btn-primary py-0 px-1 mdi mdi-magnify" tabindex="0" @click="sendQuery()"></i>
   </div>
@@ -8,8 +8,7 @@
 
 <script>
 import Pop from "../utils/Pop";
-import { AppState } from '../AppState';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { recipeService } from "../services/RecipeService";
 
 export default {
