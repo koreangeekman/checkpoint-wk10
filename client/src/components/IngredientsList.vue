@@ -15,7 +15,7 @@
           <p class="mb-0 mx-2">●</p>
           <p class="mb-0">{{ ingredient.name }}</p>
         </span>
-        <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="enableEdit(ingredient)"
+        <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="editIngredient(ingredient)"
           v-if="creatorId == account.id"></i>
         <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" @click="removeIngredient(ingredient.id)"
           v-if="creatorId == account.id"></i>
@@ -58,10 +58,13 @@ export default {
       ingredients: computed(() => AppState.ingredients),
       account: computed(() => AppState.account),
 
-      enableEdit(ingredientObj) {
+      editIngredient(ingredientObj) {
         ingredientForm.value = ingredientObj;
       },
 
+      clearFormData() {
+        ingredientForm.value = {};
+      },
       submitForm() {
         if (ingredientForm.value.id) {
           this.updateIngredient(ingredientForm.value);
