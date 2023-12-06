@@ -2,8 +2,8 @@ namespace wk10.Services;
 
 public class RecipeService(RecipeRepo recipeRepo)
 {
-  internal List<Recipe> GetRecipes()
-  { return recipeRepo.GetRecipes(); }
+  internal List<Recipe> GetRecipes(string query)
+  { return recipeRepo.GetRecipes(query); }
 
   internal Recipe GetRecipeById(int recipeId)
   { return recipeRepo.GetRecipeById(recipeId) ?? throw new Exception($"Recipe with ID {recipeId} does not exist"); }

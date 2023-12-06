@@ -23,9 +23,9 @@ public class RecipesController : ControllerBase
 
 
   [HttpGet]
-  public ActionResult<List<Recipe>> GetRecipes()
+  public ActionResult<List<Recipe>> GetRecipes(string query)
   {
-    try { return Ok(recipeService.GetRecipes()); }
+    try { return Ok(recipeService.GetRecipes(query)); }
     catch (Exception e) { return BadRequest(e.Message); }
   }
 

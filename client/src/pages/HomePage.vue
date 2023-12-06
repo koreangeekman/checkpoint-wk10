@@ -57,7 +57,9 @@ export default {
       if (AppState.account.id && AppState.favRecipes.length == 0) {
         _getFavRecipes();
       }
-      if (filterBy.value || AppState.recipes.length > 0) {
+      if (AppState.queried.length > 0) {
+        recipes.value = AppState.queried;
+      } else if (filterBy.value || AppState.recipes.length > 0) {
         _filtering()
       }
     })

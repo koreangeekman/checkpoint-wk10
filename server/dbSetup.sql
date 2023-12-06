@@ -70,3 +70,8 @@ FROM instructions
 WHERE recipeId = 15;
 
 DELETE FROM instructions WHERE id = 4;
+
+SELECT r.*, acc.*
+FROM recipes r
+    JOIN accounts acc ON acc.id = r.creatorId
+WHERE category LIKE '%o%';
