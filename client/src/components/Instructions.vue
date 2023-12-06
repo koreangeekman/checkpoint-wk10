@@ -15,8 +15,8 @@
           <p class="mb-0 mx-2">●</p>
           <p class="mb-0">{{ step.body }}</p>
         </span>
-        <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="enableEdit(step)"
-          v-if="creatorId == account.id"></i>
+        <!-- <i class="text-grey hidden mx-2 fs-5 mdi mdi-pencil" type="button" @click="enableEdit(step)"
+          v-if="creatorId == account.id"></i> -->
         <i class="text-danger hidden fs-5 mdi mdi-trash-can" type="button" @click="removeStep(step.id)"
           v-if="creatorId == account.id"></i>
       </div>
