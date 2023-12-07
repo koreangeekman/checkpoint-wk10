@@ -12,7 +12,7 @@
       </div>
       <div class="ms-2 mb-3 w-50">
         <label for="category">Category</label>
-        <select v-model="recipeForm.category" type="text" class="form-control shadow" id="category" required>
+        <select v-model="recipeForm.category" type="text" class="form-select shadow" id="category" required>
           <option v-for="category in categories" :value="category">{{ category }}</option>
         </select>
       </div>
