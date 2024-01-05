@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image for the client build
-FROM node:20 AS client-builder
+FROM node:20-slim AS client-builder
 
 # Set the working directory in the client builder container
 WORKDIR /app/client
@@ -16,15 +16,15 @@ COPY client ./
 # Build the client-side code
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build-env
 
 WORKDIR /app/server
 
 # Copy everything
-COPY server/*.csproj ./
+COPY server/wk10.csproj ./
 
 # Restore as distinct layers
-RUN dotnet restore
+RUN dotnet restore "wk10.csproj"
 
 COPY server ./
 COPY --from=client-builder /app/client/docs /app/server/wwwroot
@@ -33,7 +33,7 @@ COPY --from=client-builder /app/client/docs /app/server/wwwroot
 RUN dotnet publish -c Release -o out
 
 # Start runtime image
-FROM mcr.microsoft.com/dotnet/sdk:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
 COPY --from=build-env /app/server/out .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet keepr.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet wk10.dll

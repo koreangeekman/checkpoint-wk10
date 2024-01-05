@@ -1,3 +1,5 @@
+-- Active: 1703085620939@@34.213.246.130@3306@allspice
+
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
@@ -10,7 +12,7 @@ CREATE TABLE
         github varchar(255) COMMENT 'User github',
         linkedin varchar(255) COMMENT 'User linkedin',
         resume varchar(255) COMMENT 'User resume',
-        bio varchar(255) COMMENT 'User bio',
+        bio varchar(255) COMMENT 'User bio'
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
