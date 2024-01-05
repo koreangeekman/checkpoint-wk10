@@ -9,14 +9,15 @@ public class RecipeRepo(IDbConnection db)
     return recipe;
   }
 
-  internal List<Recipe> GetRecipes()
+  internal List<Recipe> GetRecipes(string query)
   {
+    string condition = " WHERE category LIKE '%" + query + "%';";
     string sql = @"
         SELECT 
         r.*,
         acc.*
         FROM recipes r
-        JOIN accounts acc ON acc.id = r.creatorId;";
+        JOIN accounts acc ON acc.id = r.creatorId" + (query != null ? condition : ";");
     return db.Query<Recipe, Profile, Recipe>(sql, PopulateProfile).ToList();
   }
 

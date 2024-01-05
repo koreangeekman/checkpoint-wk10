@@ -38,7 +38,7 @@
             </span>
           </div>
           <div class="col-12 col-md-6 p-3 h-100">
-            <Instructions :instructions="activeRecipe.instructions" />
+            <Instructions :instructionsBlock="activeRecipe.instructions" :creatorId="activeRecipe.creatorId" />
           </div>
           <div class="col-12 col-md-6 p-3 h-100">
             <IngredientsList :recipeId="activeRecipe.id" :creatorId="activeRecipe.creatorId" />
@@ -52,7 +52,7 @@
 
 <script>
 import Pop from "../utils/Pop";
-import { computed } from 'vue';
+import { computed, onBeforeUnmount } from 'vue';
 import { Modal } from "bootstrap";
 import { AppState } from '../AppState';
 import { recipeService } from "../services/RecipeService";
@@ -62,6 +62,11 @@ import Favorites from "./Favorites.vue";
 
 export default {
   setup() {
+
+    onBeforeUnmount(() => {
+      AppState.activeRecipe = {};
+      AppState.ingredients = [];
+    })
     return {
       account: computed(() => AppState.account),
       activeRecipe: computed(() => AppState.activeRecipe),

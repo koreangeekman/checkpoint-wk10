@@ -40,6 +40,15 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
+    IF NOT EXISTS instructions(
+        id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        `position` INT NOT NULL,
+        body CHAR(255) NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
+CREATE TABLE
     IF NOT EXISTS favorites(
         id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
         recipeId INT NOT NULL,
@@ -48,3 +57,23 @@ CREATE TABLE
         FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
         UNIQUE (recipeId, accountId)
     ) default charset utf8 COMMENT '';
+
+SELECT (MAX(id) + 1) AS step_count
+FROM ingredients
+WHERE recipeId = 15;
+
+INSERT INTO
+    instructions(position, body, recipeId)
+SELECT
+    MAX(position) + 1,
+    'eat food stuff',
+    15
+FROM instructions
+WHERE recipeId = 15;
+
+DELETE FROM instructions WHERE id = 4;
+
+SELECT r.*, acc.*
+FROM recipes r
+    JOIN accounts acc ON acc.id = r.creatorId
+WHERE category LIKE '%o%';

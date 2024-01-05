@@ -11,9 +11,13 @@ function recipeIndex(recipeId) {
 }
 class RecipeService {
 
-  async getRecipes() {
-    const res = await api.get('api/recipes');
-    AppState.recipes = res.data.map(r => new Recipe(r));
+  async getRecipes(query) {
+    const res = await api.get('api/recipes' + (query ? '?query=' + query : ''));
+    if (query) {
+      AppState.queried = res.data.map(r => new Recipe(r));
+    } else {
+      AppState.recipes = res.data.map(r => new Recipe(r));
+    }
   }
 
   async getRecipeById(recipeId) {

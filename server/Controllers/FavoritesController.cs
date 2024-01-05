@@ -2,8 +2,17 @@ namespace wk10.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class FavoritesController(Auth0Provider auth0Provider, FavService favService) : ControllerBase
+public class FavoritesController : ControllerBase
 {
+  private readonly Auth0Provider _a0;
+  private readonly FavService _favService;
+
+  public FavoritesController(Auth0Provider a0, FavService favService)
+  {
+    _a0 = a0;
+    _favService = favService;
+  }
+
 
   [Authorize]
   [HttpPost]
@@ -11,9 +20,9 @@ public class FavoritesController(Auth0Provider auth0Provider, FavService favServ
   {
     try
     {
-      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
       favData.AccountId = userInfo.Id;
-      return Ok(favService.CreateFavorite(favData));
+      return Ok(_favService.CreateFavorite(favData));
     }
     catch (Exception e) { return BadRequest(e.Message); }
   }
@@ -24,8 +33,8 @@ public class FavoritesController(Auth0Provider auth0Provider, FavService favServ
   {
     try
     {
-      Account userInfo = await auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      return Ok(favService.DeleteFavorite(userInfo.Id, favId));
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_favService.DeleteFavorite(userInfo.Id, favId));
     }
     catch (Exception e) { return BadRequest(e.Message); }
   }

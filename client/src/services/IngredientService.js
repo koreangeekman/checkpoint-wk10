@@ -11,6 +11,11 @@ class IngredientService {
     //can rebound-remove on error in 'controller' catch as insurance
   }
 
+  async updateIngredient(ingredientData) {
+    const res = await api.put('api/ingredients/' + ingredientData.id, ingredientData);
+    // AppState.ingredients = AppState.ingredients.filter(i => i.id != ingredientData.id);
+  }
+
   async removeIngredient(ingredientId) {
     const res = await api.delete('api/ingredients/' + ingredientId);
     AppState.ingredients = AppState.ingredients.filter(i => i.id != ingredientId);

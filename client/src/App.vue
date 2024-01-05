@@ -37,7 +37,6 @@ export default {
   height: 32.4rem;
   object-fit: cover;
   object-position: bottom;
-  /* padding-bottom: 0rem; */
   margin-bottom: -6.4rem;
   clip-path: inset(0 0 6.4rem 0);
   z-index: -1;
