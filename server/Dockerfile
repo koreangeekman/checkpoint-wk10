@@ -16,7 +16,7 @@ COPY client ./
 # Build the client-side code
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine-arm64v8 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine-amd64 AS build-env
 
 WORKDIR /app/server
 
@@ -24,7 +24,7 @@ WORKDIR /app/server
 COPY server/*.csproj ./
 
 # Restore as distinct layers
-RUN dotnet restore --verbosity diag
+RUN dotnet restore
 
 COPY server ./
 COPY --from=client-builder /app/client/docs /app/server/wwwroot
