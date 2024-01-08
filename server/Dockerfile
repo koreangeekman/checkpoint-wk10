@@ -21,10 +21,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build-env
 WORKDIR /app/server
 
 # Copy everything
-COPY server/wk10.csproj ./
+COPY server/*.csproj ./
 
 # Restore as distinct layers
-RUN dotnet restore "wk10.csproj"
+RUN dotnet restore
 
 COPY server ./
 COPY --from=client-builder /app/client/docs /app/server/wwwroot
