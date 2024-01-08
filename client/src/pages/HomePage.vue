@@ -50,11 +50,12 @@ import RecipeForm from "../components/RecipeForm.vue";
 export default {
   setup() {
 
+    const checked = ref(false);
     const filterBy = ref('all');
     const recipes = ref([...AppState.recipes]);
 
     watchEffect(() => {
-      if (AppState.account.id && AppState.favRecipes.length == 0) {
+      if (!checked && AppState.account.id && AppState.favRecipes.length == 0) {
         _getFavRecipes();
       }
       if (AppState.queried.length > 0) {
@@ -89,6 +90,7 @@ export default {
     async function _getFavRecipes() {
       try {
         await accountService.getFavsByAccountId();
+        checked = true;
       }
       catch (error) { Pop.error(error); }
     }

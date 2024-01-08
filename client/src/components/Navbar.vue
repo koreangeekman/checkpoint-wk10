@@ -16,10 +16,10 @@
       </div>
       <div class="d-flex justify-content-end align-items-center navItems">
         <SearchComponent />
-        <div class="">
-          <button class="btn text-light" @click="toggleTheme">
+        <div class="mx-2 mx-md-3">
+          <!-- <button class="btn text-light" @click="toggleTheme">
             <i class="mdi" :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i>
-          </button>
+          </button> -->
         </div>
         <Login />
       </div>
