@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout Repository 👀
         uses: actions/checkout@v4
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -27,7 +28,6 @@ jobs:
       - name: Build and Push Docker Image 🐋
         uses: docker/build-push-action@v5
         with:
-          platforms: linux/amd64
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPO_NAME }}:latest
           file: server/Dockerfile
           context: .
