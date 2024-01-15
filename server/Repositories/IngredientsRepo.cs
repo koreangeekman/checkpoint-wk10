@@ -1,4 +1,4 @@
-namespace wk10.Repositories;
+namespace allspice.Repositories;
 
 public class IngredientsRepo(IDbConnection db)
 {

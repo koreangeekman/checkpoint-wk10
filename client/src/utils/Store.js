@@ -1,6 +1,6 @@
 import Pop from "./Pop.js"
 
-const APP_NAME = "wk10"
+const APP_NAME = "allspice"
 
 export function saveState(key, value) {
   try {

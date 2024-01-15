@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MySqlConnector;
 
-namespace wk10;
+namespace allspice;
 
 public class Startup
 {
@@ -26,7 +26,7 @@ public class Startup
     services.AddControllers();
     services.AddSwaggerGen(c =>
     {
-      c.SwaggerDoc("v1", new OpenApiInfo { Title = "wk10", Version = "v1" });
+      c.SwaggerDoc("v1", new OpenApiInfo { Title = "allspice", Version = "v1" });
     });
     services.AddSingleton<Auth0Provider>();
     services.AddScoped<IDbConnection>(x => CreateDbConnection());
@@ -92,7 +92,7 @@ public class Startup
     {
       app.UseDeveloperExceptionPage();
       app.UseSwagger();
-      app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "wk10"));
+      app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "allspice"));
       app.UseCors("CorsDevPolicy");
     }
 

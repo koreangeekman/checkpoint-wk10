@@ -1,4 +1,4 @@
-namespace wk10.Services;
+namespace allspice.Services;
 
 public class IngredientsService(IngredientsRepo ingredientsRepo, RecipeService recipeService)
 {
