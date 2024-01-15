@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade" :id="modalId" tabindex="-1" :aria-labelledby="modalId + 'Label'" aria-hidden="true">
-    <div class="modal-dialog" :class="modalSize">
+    <div :class="'modal-dialog ' + modalSize">
       <div class="modal-content">
         <div class="modal-header" v-if="showHeader">
           <h1 class="modal-title fs-5" :id="modalId + 'Label'">
@@ -29,7 +29,7 @@ import { computed, onMounted } from 'vue';
 
 export default {
   props: {
-    modalId: { type: String },
+    modalId: { type: String, required: true },
     modalSize: { type: String, default: '' },
     showHeader: { type: Boolean, default: false },
     showFooter: { type: Boolean, default: false }

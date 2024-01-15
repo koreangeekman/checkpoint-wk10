@@ -9,22 +9,37 @@
   <main>
     <router-view />
   </main>
+
+  <ModalComponent :modalId="'newRecipe'" :modalSize="'modal-lg'" :showHeader="true">
+    <template #modalTitle>New Recipe</template>
+    <template #modalBody>
+      <RecipeForm />
+    </template>
+  </ModalComponent>
+
+  <ModalComponent :modalId="'editRecipe'" :modalSize="'modal-lg'" :showHeader="true">
+    <template #modalTitle>Edit Recipe</template>
+    <template #modalBody>
+      <RecipeForm :edit="true" />
+    </template>
+  </ModalComponent>
 </template>
 
+
 <script>
-import { computed } from 'vue'
-import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import ModalComponent from "./components/ModalComponent.vue";
+import RecipeForm from "./components/RecipeForm.vue";
 
 export default {
   setup() {
-    return {
-      appState: computed(() => AppState)
-    }
+    return {}
   },
-  components: { Navbar }
+  components: { Navbar, ModalComponent, RecipeForm }
 }
 </script>
+
+
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
@@ -36,9 +51,9 @@ export default {
   width: 100%;
   height: 32.4rem;
   object-fit: cover;
-  object-position: bottom;
-  margin-bottom: -6.4rem;
-  clip-path: inset(0 0 6.4rem 0);
+  object-position: center;
+  margin-bottom: -3.2rem;
+  clip-path: inset(0 0 3.2rem 0);
   z-index: -1;
 }
 </style>

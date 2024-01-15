@@ -11,6 +11,6 @@ global using Dapper;
 global using CodeWorks.Utils;
 
 // APPLICATION SPECIFIC
-global using wk10.Repositories;
-global using wk10.Services;
-global using wk10.Models;
+global using allspice.Repositories;
+global using allspice.Services;
+global using allspice.Models;

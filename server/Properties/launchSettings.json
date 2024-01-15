@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "wk10": {
+    "allspice": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

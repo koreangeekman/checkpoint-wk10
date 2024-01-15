@@ -1,4 +1,4 @@
-namespace wk10.Models;
+namespace allspice.Models;
 
 public class FavRecipe : Recipe
 {

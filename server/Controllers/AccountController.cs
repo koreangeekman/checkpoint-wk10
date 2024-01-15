@@ -1,4 +1,4 @@
-namespace wk10.Controllers;
+namespace allspice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
