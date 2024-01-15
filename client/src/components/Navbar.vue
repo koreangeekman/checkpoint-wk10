@@ -6,13 +6,15 @@
           class="selectable navItems p-0 px-3 btn fs-1 mdi mdi-plus-circle"></i>
       </div>
       <div class="w-100 d-flex justify-content-center pt-2 position-absolute title-bar">
-        <div class="cover-title rounded px-3 pb-2 text-center">
-          <p class="fs-1 mb-0 fw-bold text-light">All Spice</p>
-          <p class="fs-5 mb-0 text-light">
-            Cherish Your Family <br>
-            And Their Cooking
-          </p>
-        </div>
+        <RouterLink :to="{ name: 'Home' }">
+          <div class="cover-title rounded px-3 pb-2 text-center">
+            <p class="fs-1 mb-0 fw-bold text-light">All Spice</p>
+            <p class="fs-5 mb-0 text-light">
+              Cherish Your Family <br>
+              And Their Cooking
+            </p>
+          </div>
+        </RouterLink>
       </div>
       <div class="d-flex justify-content-end align-items-center navItems">
         <SearchComponent />

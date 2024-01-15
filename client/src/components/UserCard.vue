@@ -3,7 +3,7 @@
     <h1>{{ profile.name }}</h1>
     <img class="rounded-circle mt-2 mb-3" :src="profile.picture" alt="" />
     <p>{{ profile.email }}</p>
-    <div class="d-flex justify-content-center">
+    <!-- <div class="d-flex justify-content-center">
       <div class="timestamps">
         <span class="d-flex justify-content-between">
           <p class="mb-0 courier"> Created: </p>
@@ -16,7 +16,7 @@
             {{ profile.updatedAt.toLocaleDateString() + ' @ ' + profile.updatedAt.toLocaleTimeString() }} </p>
         </span>
       </div>
-    </div>
+    </div> -->
     <p class="pt-3">{{ profile.bio }}</p>
     <div class="fs-1 socials d-flex justify-content-center p-3">
       <a :href="profile.github" target="_blank"><i class="p-3 mdi mdi-github" title="icon for github"></i></a>

@@ -11,8 +11,8 @@ class FavService {
   }
 
   async removeFavorite(favId) {
-    const res = await api.delete('api/favorites/' + favId);
     AppState.favRecipes = AppState.favRecipes.filter(r => r.favoriteId != favId);
+    const res = await api.delete('api/favorites/' + favId);
   }
 
 }

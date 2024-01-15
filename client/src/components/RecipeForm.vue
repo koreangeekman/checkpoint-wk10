@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="routeSubmit()" class="">
+  <form @submit.prevent="routeSubmit()">
     <span class="d-flex">
       <div class="me-2 mb-3 w-100">
         <label for="title">Title</label>

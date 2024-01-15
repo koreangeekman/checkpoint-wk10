@@ -14,20 +14,6 @@
     </section>
   </div>
 
-  <ModalComponent :modalId="'newRecipe'" :modalSize="'modal-lg'" :showHeader="true">
-    <template #modalTitle>New Recipe</template>
-    <template #modalBody>
-      <RecipeForm />
-    </template>
-  </ModalComponent>
-
-  <ModalComponent :modalId="'editRecipe'" :modalSize="'modal-lg'" :showHeader="true">
-    <template #modalTitle>Edit Recipe</template>
-    <template #modalBody>
-      <RecipeForm :edit="true" />
-    </template>
-  </ModalComponent>
-
   <ModalComponent :modalId="'recipeDetails'" :modalSize="'modal-xl'">
     <!-- <template #modalTitle></template> -->
     <template #modalBody>
@@ -45,17 +31,15 @@ import { recipeService } from "../services/RecipeService";
 import ModalComponent from "../components/ModalComponent.vue";
 import RecipeDetails from "../components/RecipeDetails.vue";
 import RecipeCard from "../components/RecipeCard.vue";
-import RecipeForm from "../components/RecipeForm.vue";
 
 export default {
   setup() {
 
-    const checked = ref(false);
     const filterBy = ref('all');
     const recipes = ref([...AppState.recipes]);
 
     watchEffect(() => {
-      if (!checked && AppState.account.id && AppState.favRecipes.length == 0) {
+      if (AppState.account.id) {
         _getFavRecipes();
       }
       if (AppState.queried.length > 0) {
@@ -90,7 +74,6 @@ export default {
     async function _getFavRecipes() {
       try {
         await accountService.getFavsByAccountId();
-        checked = true;
       }
       catch (error) { Pop.error(error); }
     }
@@ -107,7 +90,7 @@ export default {
 
     };
   },
-  components: { RecipeCard, RecipeForm, ModalComponent, RecipeDetails }
+  components: { RecipeCard, ModalComponent, RecipeDetails }
 }
 </script>
 

@@ -16,8 +16,8 @@
           </span>
         </span>
       </div>
-      <div class="col-12 col-md-4 m-0 px-0 py-1 position-relative">
-        <img :src="activeRecipe.img" :alt="activeRecipe.name" class="img-fluid rounded shadow">
+      <div class="col-12 col-md-4 m-0 px-0 py-1 position-relative d-flex align-items-center">
+        <img :src="activeRecipe.img" :alt="activeRecipe.name" class="rounded shadow">
         <p class="mb-0 position-absolute rounded-pill category px-2">{{ activeRecipe.category }}</p>
       </div>
       <div class="col-12 col-md-8 px-3 pb-5">
@@ -92,6 +92,12 @@ export default {
 
 
 <style lang="scss" scoped>
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .card {
   height: 100%;
 }
